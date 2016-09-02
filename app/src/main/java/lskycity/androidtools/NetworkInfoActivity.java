@@ -1,8 +1,8 @@
 package lskycity.androidtools;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.net.ConnectivityManager;
-import android.net.Network;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
@@ -119,7 +119,6 @@ public class NetworkInfoActivity extends AppCompatActivity {
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         return connMgr.getActiveNetworkInfo();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

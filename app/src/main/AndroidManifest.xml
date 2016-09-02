@@ -23,6 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".NetworkInfoActivity" android:label="@string/network_info"/>
+
+        <activity android:name=".ConfigurationInfoActivity" android:label="@string/configuration_info"/>
+
     </application>
 
 </manifest>

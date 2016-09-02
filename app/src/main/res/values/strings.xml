@@ -7,5 +7,6 @@
 
     <string name="action_settings">Settings</string>
     <string name="network_info">Network information</string>
+    <string name="configuration_info">Configuration information</string>
 
 </resources>
