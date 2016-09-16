@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity
         TextView textView = (TextView) findViewById(R.id.text_view);
         textView.setText(getSystemInfo());
 
-        //test git
+        //test git a
     }
 
     private CharSequence getSystemInfo() {
