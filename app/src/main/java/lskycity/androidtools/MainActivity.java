@@ -3,6 +3,7 @@ package lskycity.androidtools;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.view.View;
@@ -50,6 +51,8 @@ public class MainActivity extends AppCompatActivity
 
         TextView textView = (TextView) findViewById(R.id.text_view);
         textView.setText(getSystemInfo());
+
+        //test git a
     }
 
     private CharSequence getSystemInfo() {
@@ -123,7 +126,7 @@ public class MainActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
