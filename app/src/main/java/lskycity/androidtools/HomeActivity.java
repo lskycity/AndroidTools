@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 
@@ -21,7 +22,7 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.content_main);
+        setContentView(R.layout.content_container);
 
         bottomBar = BottomBar.attach(this, savedInstanceState);
         bottomBar.setItemsFromMenu(R.menu.bottom_bar, this);
@@ -29,8 +30,13 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
         //bottomBar.getCurrentTabPosition()
 
         if(savedInstanceState == null) {
-
+            applyFragment(DeviceFragment.class);
         }
+    }
+
+    private void applyFragment(Class<? extends Fragment> c) {
+        Fragment fragment = Fragment.instantiate(this, c.getName());
+        getSupportFragmentManager().beginTransaction().replace(R.id.content_container, fragment).commitAllowingStateLoss();
     }
 
     @Override
@@ -44,9 +50,16 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
     public void onMenuItemSelected(@IdRes int menuItemId) {
         switch (menuItemId) {
             case R.id.nav_device_info:
+                applyFragment(DeviceFragment.class);
+                break;
             case R.id.nav_network_info:
+                applyFragment(NetworkFragment.class);
+                break;
             case R.id.nav_configuration:
-
+                applyFragment(ConfigurationFragment.class);
+                break;
+            default:
+                break;
         }
     }
 }

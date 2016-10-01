@@ -3,15 +3,15 @@
 
         <item
             android:id="@+id/nav_device_info"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_phone_android_black_24dp"
             android:title="@string/device_info" />
         <item
             android:id="@+id/nav_network_info"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_language_black_24dp"
             android:title="@string/network_info" />
         <item
             android:id="@+id/nav_configuration"
-            android:icon="@drawable/ic_menu_slideshow"
+            android:icon="@drawable/ic_settings_applications_black_24dp"
             android:title="@string/configuration_info" />
 
 </menu>
