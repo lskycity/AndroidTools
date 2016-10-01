@@ -47,6 +47,7 @@ public class NetworkFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         textView = (TextView) view.findViewById(R.id.network_info);
         fetchNetworkInfo();
+        setHasOptionsMenu(true);
     }
 
     private void fetchNetworkInfo() {
