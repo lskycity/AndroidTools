@@ -6,7 +6,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <string name="action_settings">Settings</string>
-    <string name="network_info">Network information</string>
-    <string name="configuration_info">Configuration information</string>
+    <string name="device_info">Device</string>
+    <string name="network_info">Network</string>
+    <string name="configuration_info">Configuration</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package lskycity.androidtools;
+package com.lskycity.androidtools;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

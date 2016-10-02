@@ -1,39 +1,53 @@
-package lskycity.androidtools;
+package com.lskycity.androidtools;
 
 import android.content.Context;
-import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
 import android.text.format.Formatter;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 
-/**
- * Created by zhaofliu on 9/1/16.
- */
-public class NetworkInfoActivity extends AppCompatActivity {
+import static android.content.Context.WIFI_SERVICE;
 
+/**
+ * Created by zhaofliu on 10/1/16.
+ */
+
+public class NetworkFragment extends Fragment {
     TextView textView;
 
+    @Nullable
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_network_info);
-        textView = (TextView) findViewById(R.id.network_info);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_network_info, container, false);
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        textView = (TextView) view.findViewById(R.id.network_info);
         fetchNetworkInfo();
+        setHasOptionsMenu(true);
     }
 
     private void fetchNetworkInfo() {
@@ -59,7 +73,7 @@ public class NetworkInfoActivity extends AppCompatActivity {
             textView.append("\n");
             textView.append("network = " +networkInfo.toString());
 
-            WifiManager wm = (WifiManager) getSystemService(WIFI_SERVICE);
+            WifiManager wm = (WifiManager) getActivity().getSystemService(WIFI_SERVICE);
             String ip = Formatter.formatIpAddress(wm.getConnectionInfo().getIpAddress());
 
             textView.append("\n");
@@ -98,7 +112,7 @@ public class NetworkInfoActivity extends AppCompatActivity {
             textView.append("getDhcpInfo = " +wm.getDhcpInfo().toString());
 
             try {
-                Enumeration<NetworkInterface>  networkInterfaceList = NetworkInterface.getNetworkInterfaces();
+                Enumeration<NetworkInterface> networkInterfaceList = NetworkInterface.getNetworkInterfaces();
                 while (networkInterfaceList.hasMoreElements()) {
                     NetworkInterface interfacess = networkInterfaceList.nextElement();
                     textView.append("\n");
@@ -116,14 +130,13 @@ public class NetworkInfoActivity extends AppCompatActivity {
 
     private NetworkInfo getActiveNetworkInfo() {
         ConnectivityManager connMgr = (ConnectivityManager)
-                getSystemService(Context.CONNECTIVITY_SERVICE);
+                getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         return connMgr.getActiveNetworkInfo();
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.refresh, menu);
-        return super.onCreateOptionsMenu(menu);
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.refresh, menu);
     }
 
     @Override
@@ -134,6 +147,5 @@ public class NetworkInfoActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
