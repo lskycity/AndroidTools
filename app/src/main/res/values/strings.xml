@@ -10,5 +10,11 @@
     <string name="network_info">Network</string>
     <string name="configuration_info">Configuration</string>
     <string name="refresh">Refresh</string>
+    <string name="network_is_not_available">Network is not available</string>
+    <string name="more">More</string>
+    <string name="grant_permission">Grant permission</string>
+    <string name="camera_parameter">Camera parameter</string>
+    <string name="supported_cpu_abi">Supported CPU ABI</string>
+    <string name="grant_camera_permission_msg">Please grant camera permission if you want to check the Camera parameter.</string>
 
 </resources>
