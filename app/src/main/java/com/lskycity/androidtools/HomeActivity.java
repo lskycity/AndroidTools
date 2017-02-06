@@ -24,6 +24,8 @@ import com.roughike.bottombar.OnMenuTabSelectedListener;
  */
 public class HomeActivity extends AppCompatActivity implements OnMenuTabSelectedListener {
 
+    private static final int DISCLAIMER_REQUEST_CODE = 0x11;
+
     private BottomBar bottomBar;
 
     private InformReceiver informReceiver;
@@ -50,19 +52,23 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        if(InformCheck.shouldCheckInform(HomeActivity.this)) {
-            InformCheck.checkInform();
-        }
-
         if(DisclaimerActivity.shouldStartDisclaimerActivity(this)) {
-            DisclaimerActivity.startDisclaimerActivity(this, 1);
+            DisclaimerActivity.startDisclaimerActivity(this, DISCLAIMER_REQUEST_CODE);
+        } else {
+            if(InformCheck.shouldCheckInform(HomeActivity.this)) {
+                InformCheck.checkInform();
+            }
         }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==1 && resultCode!=RESULT_OK) {
+        if(requestCode==DISCLAIMER_REQUEST_CODE && resultCode==RESULT_OK) {
+            if(InformCheck.shouldCheckInform(HomeActivity.this)) {
+                InformCheck.checkInform();
+            }
+        } else if(requestCode==DISCLAIMER_REQUEST_CODE) {
             finish();
         }
     }
@@ -125,11 +131,7 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            System.out.println("11111111 onReceive");
-
             InformCheck.Inform inform = InformCheck.getInformFromSharedPreference(HomeActivity.this);
-
-            System.out.println("11111111 onReceive " +inform);
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeActivity.this);
             builder.setMessage(inform.content);
             builder.setNegativeButton(android.R.string.cancel, null);
