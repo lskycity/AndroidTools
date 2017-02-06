@@ -33,6 +33,14 @@
             </intent-filter>
         </activity>
 
+        <activity android:name=".ui.SettingsActivity" android:label="@string/action_settings" />
+        <activity android:name=".ui.DisclaimerActivity" android:label="@string/disclaimer" />
+        <activity android:name=".ui.PublishInformActivity" android:label="@string/publish_inform" />
+        <activity android:name=".ui.CheckVersionActivity" android:label="@string/version_info" />
+        <activity android:name=".ui.FeedbackActivity" android:label="@string/feedback" />
+
+
+
     </application>
 
 </manifest>

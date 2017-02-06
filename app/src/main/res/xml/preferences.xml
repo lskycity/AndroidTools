@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceScreen
+        android:key="publish_inform"
+        android:title="@string/publish_inform" >
+        <intent
+            android:targetClass="com.lskycity.androidtools.ui.PublishInformActivity"
+            android:targetPackage="com.lskycity.androidtools" />
+    </PreferenceScreen>
+    <PreferenceScreen
+        android:key="app_version"
+        android:summary="@string/current_version_and_have_new_version"
+        android:title="@string/version_info" >
+        <intent
+            android:targetClass="com.lskycity.androidtools.ui.CheckVersionActivity"
+            android:targetPackage="com.lskycity.androidtools" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/disclaimer">
+        <intent
+            android:targetClass="com.lskycity.androidtools.ui.DisclaimerActivity"
+            android:targetPackage="com.lskycity.androidtools" />
+    </PreferenceScreen>
+    <PreferenceScreen android:title="@string/feedback">
+        <intent
+            android:targetClass="com.lskycity.androidtools.ui.FeedbackActivity"
+            android:targetPackage="com.lskycity.androidtools" />
+    </PreferenceScreen>
+
+</PreferenceScreen>

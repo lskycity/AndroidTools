@@ -12,4 +12,7 @@ public class AppConstants {
 
 
     public static final String INFORM_URL = "http://www.lskycity.com/androidtools/inform.json";
+    public static final String CHECK_VERSION_URL = "http://www.lskycity.com/androidtools/latestversion.json";
+    public static final String MAIN_PAGE_URL = "http://www.lskycity.com/androidtools/index.html";
+    public static final String FEEDBACK_URL = "http://www.lskycity.com:5000/feedback";
 }

@@ -5,13 +5,16 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
+import com.lskycity.androidtools.ui.DisclaimerActivity;
+import com.lskycity.androidtools.ui.SettingsActivity;
 import com.roughike.bottombar.BottomBar;
 import com.roughike.bottombar.OnMenuTabSelectedListener;
 
@@ -39,17 +42,6 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
             applyFragment(DeviceFragment.class);
         }
 
-//        new Handler().post(new Runnable() {
-//            @Override
-//            public void run() {
-//                System.out.println("11111111 post ");
-//                if(InformCheck.shouldCheckInform(HomeActivity.this)) {
-//                    System.out.println("11111111 checkInform ");
-//                    InformCheck.checkInform();
-//                }
-//            }
-//        });
-
         IntentFilter filter = new IntentFilter(InformCheck.ACTION_INFORM_CHANGED);
         registerReceiver(informReceiver = new InformReceiver(), filter);
     }
@@ -58,10 +50,20 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
 
-        System.out.println("11111111 post ");
         if(InformCheck.shouldCheckInform(HomeActivity.this)) {
-            System.out.println("11111111 checkInform ");
             InformCheck.checkInform();
+        }
+
+        if(DisclaimerActivity.shouldStartDisclaimerActivity(this)) {
+            DisclaimerActivity.startDisclaimerActivity(this, 1);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==1 && resultCode!=RESULT_OK) {
+            finish();
         }
     }
 
@@ -82,6 +84,25 @@ public class HomeActivity extends AppCompatActivity implements OnMenuTabSelected
         bottomBar.onSaveInstanceState(outState);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if(item.getItemId() == R.id.action_settings) {
+            openSettingsActivity();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void openSettingsActivity() {
+        Intent intent = new Intent(this, SettingsActivity.class);
+        startActivity(intent);
+    }
 
     @Override
     public void onMenuItemSelected(@IdRes int menuItemId) {
