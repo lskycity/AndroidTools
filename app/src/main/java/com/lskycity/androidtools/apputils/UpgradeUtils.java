@@ -31,7 +31,7 @@ public class UpgradeUtils {
         info.packageName = jsonObject.getString("package_name");
         info.versionCode = jsonObject.getInt("version_code");
         info.versionName = jsonObject.getString("version_name");
-        info.downloadUrl = jsonObject.getString("download_Url");
+        info.downloadUrl = jsonObject.getString("download_url");
         info.setCurrentTimeToCheckTime();
         return info;
     }
