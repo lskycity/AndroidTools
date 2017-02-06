@@ -1,9 +1,6 @@
 <resources>
 
-    <string name="app_name">Check config</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="app_name">Check configuration</string>
 
     <string name="action_settings">Settings</string>
     <string name="device_info">Device</string>
@@ -13,39 +10,66 @@
     <string name="refreshing">Refreshing…</string>
     <string name="network_is_not_available">Network is not available</string>
     <string name="more">More</string>
+
+    <string name="android_version">Android version</string>
+    <string name="serial">Serial</string>
+
     <string name="grant_permission">Grant permission</string>
     <string name="camera_parameter">Camera parameter</string>
     <string name="supported_cpu_abi">Supported CPU ABI</string>
     <string name="grant_camera_permission_msg">Please grant camera permission if you want to check the Camera parameter.</string>
 
-    <string name="publish_inform">公告发布</string>
-    <string name="user_guide">常见问题</string>
-    <string name="feedback">反馈</string>
-    <string name="disclaimer">免责声明</string>
-    <string name="about_us">关于我们</string>
-    <string name="app_info">应用信息</string>
-    <string name="version_info">版本信息</string>
-    <string name="current_version_and_have_new_version">%1$s(有版本%2$s)</string>
+    <string name="navigation_bar_height">Navigation bar height</string>
+    <string name="status_bar_height">Status bar height</string>
+    <string name="screen_resolution">Screen resolution</string>
+    <string name="locals">Locals</string>
+    <string name="font_scale">Font Scale</string>
+    <string name="density_dpi">Density Dpi</string>
+    <string name="others">Others</string>
 
-    <string name="check_version">检查新版本</string>
-    <string name="forward_to_website">前往网页检查更新</string>
-    <string name="last_check_date">上次检查时间：</string>
-    <string name="no_check_date">没有检查过更新</string>
-    <string name="no_new_version">没有新版本</string>
-    <string name="have_new_version">有新版本%1$s，请下载最新版本</string>
-    <string name="download">下载</string>
-    <string name="let_your_friend_download">扫一扫，让朋友也下载</string>
-    <string name="share_to_friend">分享链接给朋友</string>
-    <string name="check_new_version">太久没更新？去网站查看新版本</string>
+    <string name="network_type">Network type</string>
+    <string name="network_state">Network state</string>
+    <string name="network_name">Network name</string>
+    <string name="network_extra_info">Network extra info</string>
+    <string name="network_interface">Network interface</string>
+    <string name="wifi_ip_address">Wifi ip address</string>
+    <string name="chromebook">Chromebook</string>
+    <string name="gateway">Gateway</string>
+    <string name="netmask">Netmask</string>
+    <string name="dns">DNS</string>
+    <string name="dns1">dns1</string>
+    <string name="dns2">dns2</string>
+    <string name="server_address">Server address</string>
+    <string name="lease_duration">Lease duration</string>
 
-    <string name="send">发送</string>
+    <string name="publish_inform">Published notification</string>
+    <string name="user_guide">User guide</string>
+    <string name="feedback">Feedback</string>
+    <string name="disclaimer">Disclaimer</string>
+    <string name="about_us">About us</string>
+    <string name="app_info">Application information</string>
+    <string name="version_info">Version information</string>
+    <string name="current_version_and_have_new_version">%1$s(have new version %2$s)</string>
 
-    <string name="fetch_my_feedback">我的反馈</string>
-    <string name="no_feedback">您没有发送过反馈。</string>
-    <string name="send_feedback_empty">发送的字符为空, 请重新填写再发。</string>
-    <string name="sending_feedback">正在发送您的反馈…</string>
-    <string name="send_feedback_success">发送反馈成功，感谢您的反馈。</string>
-    <string name="send_feedback_fail">发送反馈失败，请过段时间再试，或者去官方网站查看下载最新版。</string>
+    <string name="check_version">Check new version</string>
+    <string name="forward_to_website">Forward to website</string>
+    <string name="last_check_date">Latest checked date: </string>
+    <string name="no_check_date">No check date</string>
+    <string name="no_new_version">No new version</string>
+    <string name="have_new_version">Have new version%1$s, please download the new version</string>
+    <string name="download">Download</string>
+    <string name="let_your_friend_download">Let your friend scan and download.</string>
+    <string name="share_to_friend">Share link to friend</string>
+    <string name="check_new_version">Long time no update? go to website to check</string>
+
+    <string name="send">Send</string>
+
+    <string name="fetch_my_feedback">My feedback</string>
+    <string name="no_feedback">You donot have sent the feedback.</string>
+    <string name="send_feedback_empty">The content is empty, please write and send again</string>
+    <string name="sending_feedback">Sending…</string>
+    <string name="send_feedback_success">Thanks for sent feedback to us.</string>
+    <string name="send_feedback_fail">send feedback fail, please try again or go to website to check the latest version.</string>
 
     <string name="disclaimer_content">APP免责声明\n\n
         1、一切移动客户端用户在下载并浏览我们APP软件时均被视为已经仔细阅读本条款并完全同意。凡以任何方式登陆本APP，或直接、间接使用本APP资料者，均被视为自愿接受本应用相关声明和用户服务协议的约束。\n\n
@@ -54,6 +78,6 @@
     4.本声明未涉及的问题请参见国家有关法律法规，当本声明与国家有关法律法规冲突时，以国家法律法规为准。\n\n
     5.本APP相关声明版权及其修改权、更新权和最终解释权均属APP开发团队所有。</string>
 
-    <string name="agree">同意</string>
-    <string name="disagree">不同意</string>
+    <string name="agree">Agree</string>
+    <string name="disagree">Disagree</string>
 </resources>

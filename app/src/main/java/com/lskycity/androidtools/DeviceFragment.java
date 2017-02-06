@@ -67,12 +67,12 @@ public class DeviceFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void updateInfo() {
-        deviceName.setText("Device: "+Build.BRAND+" "+Build.MODEL);
-        androidVersion.setText("Android version: " + Build.VERSION.RELEASE + " / " + Build.VERSION.SDK_INT);
+        deviceName.setText(Build.BRAND+" "+Build.MODEL);
+        androidVersion.setText(getString(R.string.android_version)+": " + Build.VERSION.RELEASE + " / " + Build.VERSION.SDK_INT);
         if(PermissionUtils.checkPermission(getActivity(), PermissionUtils.PHONE)) {
             imei.setText("IMEI: " +DeviceUtils.getIMEI(getActivity()));
         } else {
-            imei.setText("Serial: " + Build.SERIAL);
+            imei.setText(getString(R.string.serial)+": " + Build.SERIAL);
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -91,13 +91,13 @@ public class DeviceFragment extends Fragment {
             }
         }
 
-        try {
-            updateCameraInfo();
-        }catch (Exception e) {
-            backend.setText("No Camera found.");
-            front.setVisibility(View.GONE);
-            grantCameraPermission.setVisibility(View.GONE);
-        }
+//        try {
+//            updateCameraInfo();
+//        }catch (Exception e) {
+//            backend.setText("No Camera found.");
+//            front.setVisibility(View.GONE);
+//            grantCameraPermission.setVisibility(View.GONE);
+//        }
 
     }
 

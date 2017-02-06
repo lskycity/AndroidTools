@@ -79,9 +79,9 @@ public class NetworkFragment extends Fragment {
 
     }
 
-    private static InfoBin getNetworkType(NetworkInfo networkInfo) {
+    private InfoBin getNetworkType(NetworkInfo networkInfo) {
         InfoBin bin = new InfoBin();
-        bin.name = "Network type";
+        bin.name = getString(R.string.network_type);
         bin.value = networkInfo.getTypeName();
         if(!TextUtils.isEmpty(networkInfo.getSubtypeName())) {
             bin.value += "["+networkInfo.getSubtypeName()+"]";
@@ -89,24 +89,23 @@ public class NetworkFragment extends Fragment {
         return bin;
     }
 
-    private static InfoBin getNetworkState(NetworkInfo networkInfo) {
+    private InfoBin getNetworkState(NetworkInfo networkInfo) {
         InfoBin bin = new InfoBin();
-        bin.name = "Network state";
+        bin.name = getString(R.string.network_state);
         bin.value = networkInfo.getState()+"/"+networkInfo.getDetailedState();
         return bin;
     }
 
-    private static InfoBin getNetworkExtra(NetworkInfo networkInfo) {
+    private InfoBin getNetworkExtra(NetworkInfo networkInfo) {
         InfoBin bin = new InfoBin();
-        bin.name = "Network extra";
+        bin.name = getString(R.string.network_name);
         bin.value = networkInfo.getExtraInfo();
         return bin;
     }
 
-    private static InfoBin getNetworkExtraInfo(NetworkInfo networkInfo) {
+    private InfoBin getNetworkExtraInfo(NetworkInfo networkInfo) {
         InfoBin bin = new InfoBin();
-        bin.name = "Network extra info";
-
+        bin.name = getString(R.string.network_extra_info);
 
         StringBuilder builder = new StringBuilder();
         if(networkInfo.isFailover()) {
@@ -132,7 +131,7 @@ public class NetworkFragment extends Fragment {
         return bin;
     }
 
-    private static ArrayList<InfoBin> getNetworkIpAddressFormInterface() {
+    private ArrayList<InfoBin> getNetworkIpAddressFormInterface() {
 
         ArrayList<InfoBin> list = new ArrayList<>(5);
 
@@ -143,7 +142,7 @@ public class NetworkFragment extends Fragment {
                 String name = interfacess.getName();
 
                 InfoBin infoBin = new InfoBin();
-                infoBin.name = "Network interface " + name;
+                infoBin.name = getString(R.string.network_interface)+"/"+name;
                 infoBin.value = "";
 
 
@@ -183,7 +182,7 @@ public class NetworkFragment extends Fragment {
         return list;
     }
 
-    private static ArrayList<InfoBin> getNetworkIpAddressFormWifiManager(Context context) {
+    private ArrayList<InfoBin> getNetworkIpAddressFormWifiManager(Context context) {
 
         ArrayList<InfoBin> list = new ArrayList<>(5);
 
@@ -193,51 +192,50 @@ public class NetworkFragment extends Fragment {
         DhcpInfo dhcpInfo = wm.getDhcpInfo();
 
         InfoBin ipBin = new InfoBin();
-        ipBin.name = "Wifi ip address";
+        ipBin.name = getString(R.string.wifi_ip_address);
         if(DeviceUtils.isChromeBookDevice()) {
-            ipBin.name += "(ChromeBook)";
+            ipBin.name += "("+getString(R.string.chromebook) +")";
         }
         ipBin.value = Formatter.formatIpAddress(dhcpInfo.ipAddress) +"/"+ip;
         list.add(ipBin);
 
         InfoBin gateway = new InfoBin();
-        gateway.name = "Gateway";
+        gateway.name = getString(R.string.gateway);
         gateway.value = Formatter.formatIpAddress(dhcpInfo.gateway);
         list.add(gateway);
 
         InfoBin netmask = new InfoBin();
-        netmask.name = "Netmask";
+        netmask.name = getString(R.string.netmask);
         netmask.value = Formatter.formatIpAddress(dhcpInfo.netmask);
         list.add(netmask);
 
         InfoBin dns1 = new InfoBin();
-        dns1.name = "dns1";
+        dns1.name = getString(R.string.dns1);
         dns1.value = Formatter.formatIpAddress(dhcpInfo.dns1);
         list.add(dns1);
 
         InfoBin dns2 = new InfoBin();
-        dns2.name = "dns2";
+        dns2.name = getString(R.string.dns2);
         dns2.value = Formatter.formatIpAddress(dhcpInfo.dns2);
         list.add(dns2);
 
         InfoBin serverAddress = new InfoBin();
-        serverAddress.name = "serverAddress";
+        serverAddress.name = getString(R.string.server_address);
         serverAddress.value = Formatter.formatIpAddress(dhcpInfo.serverAddress);
         list.add(serverAddress);
 
         InfoBin leaseDuration = new InfoBin();
-        leaseDuration.name = "leaseDuration";
+        leaseDuration.name = getString(R.string.lease_duration);
         leaseDuration.value = Formatter.formatIpAddress(dhcpInfo.leaseDuration);
         list.add(leaseDuration);
 
         return list;
     }
 
-    private static InfoBin getDNSInfo() {
+    private  InfoBin getDNSInfo() {
         InfoBin bin = new InfoBin();
 
-        bin.name = "DNS";
-
+        bin.name = getString(R.string.dns);
         Class<?> SystemProperties = null;
         try {
             SystemProperties = Class.forName("android.os.SystemProperties");

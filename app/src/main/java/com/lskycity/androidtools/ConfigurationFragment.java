@@ -28,9 +28,6 @@ import java.util.ArrayList;
  */
 
 public class ConfigurationFragment extends Fragment {
-    private ArrayList<InfoBin> arrayList = new ArrayList<>();
-
-    private ListView listView;
 
     @Nullable
     @Override
@@ -41,7 +38,7 @@ public class ConfigurationFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        listView = (ListView) view.findViewById(R.id.list_view);
+        ListView listView = (ListView) view.findViewById(R.id.list_view);
         listView.setAdapter(new ConfigAdapter(getActivity(), fetchConfigInfo()));
     }
 
@@ -67,7 +64,7 @@ public class ConfigurationFragment extends Fragment {
         int navigationBarHeight = resources.getDimensionPixelSize(resourceId);
 
         InfoBin bin = new InfoBin();
-        bin.name = "Navigation bar height";
+        bin.name = activity.getString(R.string.navigation_bar_height);
         bin.value = navigationBarHeight +"(" + DensityUtils.pxTodp(activity, navigationBarHeight)+"dp)";
         return bin;
     }
@@ -79,7 +76,7 @@ public class ConfigurationFragment extends Fragment {
         int navigationBarHeight = resources.getDimensionPixelSize(resourceId);
 
         InfoBin bin = new InfoBin();
-        bin.name = "Status bar height";
+        bin.name = activity.getString(R.string.status_bar_height);
         bin.value = navigationBarHeight +"(" + DensityUtils.pxTodp(activity, navigationBarHeight)+"dp)";
         return bin;
     }
@@ -94,7 +91,7 @@ public class ConfigurationFragment extends Fragment {
         Resources res = activity.getResources();
 
         InfoBin bin = new InfoBin();
-        bin.name = "Screen resolution";
+        bin.name = res.getString(R.string.screen_resolution);
         bin.value = screenSize.x +" * " +screenSize.y + "("+ConfigurationHelper.getScreenWidthDp(res) +"dp * " +ConfigurationHelper.getScreenHeightDp(res)+"dp)";
 
         return bin;
@@ -103,7 +100,7 @@ public class ConfigurationFragment extends Fragment {
 
     public static InfoBin getLocals(Resources res) {
         InfoBin bin = new InfoBin();
-        bin.name = "Locals";
+        bin.name = res.getString(R.string.locals);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             bin.value = res.getConfiguration().getLocales().toString();
         } else {
@@ -115,21 +112,21 @@ public class ConfigurationFragment extends Fragment {
 
     public static InfoBin getFontScale(Resources res) {
         InfoBin bin = new InfoBin();
-        bin.name = "Font Size";
+        bin.name = res.getString(R.string.font_scale);
         bin.value = String.valueOf(res.getConfiguration().fontScale);
         return bin;
     }
 
     public static InfoBin getDensityDpi(Resources res) {
         InfoBin bin = new InfoBin();
-        bin.name = "Density Dpi";
+        bin.name = res.getString(R.string.density_dpi);
         bin.value = String.valueOf(res.getConfiguration().densityDpi);
         return bin;
     }
 
     public static InfoBin getOthers(Resources res) {
         InfoBin bin = new InfoBin();
-        bin.name = "Others";
+        bin.name = res.getString(R.string.others);
         bin.value = res.getConfiguration().toString();
         return bin;
     }
