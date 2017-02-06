@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.lskycity.androidtools.utils.DeviceUtils;
 
@@ -280,6 +281,7 @@ public class NetworkFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if(item.getItemId() == R.id.refresh) {
+            Toast.makeText(getActivity(), R.string.refreshing, Toast.LENGTH_LONG).show();
             updateNetworkInfo();
             return true;
         }
