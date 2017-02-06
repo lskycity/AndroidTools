@@ -8,6 +8,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.lskycity.androidtools.app.ToolApplication;
+import com.lskycity.androidtools.utils.CharsetJsonRequest;
 import com.lskycity.androidtools.utils.SharedPreUtils;
 
 import org.json.JSONException;
@@ -29,30 +30,24 @@ public class InformCheck {
     public static boolean shouldCheckInform(Context context) {
         String lastCheckTime = SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME);
 
-        System.out.println("11111111 lastCheckTime="+lastCheckTime);
-
         return TextUtils.isEmpty(lastCheckTime)
                 || (System.currentTimeMillis() - Long.parseLong(lastCheckTime)) > TIME_GREP_CHECK_INFORM;
     }
 
-    static void checkInform() {
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(AppConstants.INFORM_URL, null, new Response.Listener<JSONObject>() {
+    public static void checkInform() {
+        CharsetJsonRequest jsonObjectRequest = new CharsetJsonRequest(AppConstants.INFORM_URL, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject jsonObject) {
                 try {
                     Inform latest = getInformFromSharedPreference(ToolApplication.get());
-                    System.out.println("11111111 latest="+latest);
 
                     Inform info = getInform(jsonObject);
 
-                    System.out.println("11111111 info="+info);
                     putToSharedPre(ToolApplication.get(), info);
 
                     if(TextUtils.isEmpty(latest.id) || !TextUtils.equals(latest.id, info.id)) {
-                        System.out.println("11111111 send");
                         sendBroadcast();
 
-                        System.out.println("11111111 sent");
                     }
 
                 } catch (JSONException e) {
@@ -66,6 +61,7 @@ public class InformCheck {
 
             }
         });
+
 
         ToolApplication.get().getRequestQueue().add(jsonObjectRequest);
     }
@@ -96,15 +92,16 @@ public class InformCheck {
     private static void sendBroadcast() {
         Intent intent=new Intent();
         intent.setAction(ACTION_INFORM_CHANGED);
+//        intent.putExtra(ACTION_INFORM_CHANGED, true);
         ToolApplication.get().sendBroadcast(intent);
 
     }
 
 
-    static class Inform {
-        String id;
-        String content;
-        String checkTime;
+    public static class Inform {
+        public String id;
+        public String content;
+        public String checkTime;
 
         @Override
         public String toString() {
