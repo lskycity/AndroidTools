@@ -13,7 +13,7 @@ import android.widget.LinearLayout;
 import com.lskycity.androidtools.R;
 import com.lskycity.androidtools.utils.AppUtils;
 import com.lskycity.androidtools.utils.SharedPreUtils;
-import com.lskycity.androidtools.utils.ViewUtils;
+import com.lskycity.support.utils.ViewUtils;
 
 
 public class DisclaimerActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,7 +44,7 @@ public class DisclaimerActivity extends AppCompatActivity implements View.OnClic
 
         int versionCode = SharedPreUtils.getInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(this);
-        ViewUtils.setVisible(buttonBar, (currentCode > versionCode));
+        ViewUtils.setVisible(buttonBar, currentCode > versionCode);
 
         ActionBar actionBar = getSupportActionBar();
         if(actionBar!=null && currentCode > versionCode) {
