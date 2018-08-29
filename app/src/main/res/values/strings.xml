@@ -80,4 +80,5 @@
 
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
+    <string name="opengl_version">OpenGL Version</string>
 </resources>

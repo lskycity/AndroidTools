@@ -1,6 +1,9 @@
 package com.lskycity.androidtools;
 
 import android.annotation.SuppressLint;
+import android.app.ActivityManager;
+import android.content.Context;
+import android.content.pm.ConfigurationInfo;
 import android.hardware.Camera;
 import android.hardware.camera2.CameraManager;
 import android.os.Build;
@@ -51,6 +54,7 @@ public class DeviceFragment extends Fragment {
     @BindView(R.id.grant_camera_permission) Button grantCameraPermission;
 
     @BindView(R.id.more) TextView more;
+    @BindView(R.id.gl_version) TextView glVersion;
 
     @Nullable
     @Override
@@ -91,14 +95,23 @@ public class DeviceFragment extends Fragment {
             }
         }
 
-//        try {
-//            updateCameraInfo();
-//        }catch (Exception e) {
-//            backend.setText("No Camera found.");
-//            front.setVisibility(View.GONE);
-//            grantCameraPermission.setVisibility(View.GONE);
-//        }
+        glVersion.setText(getGlVersion());
 
+        try {
+            updateCameraInfo();
+        }catch (Exception e) {
+            backend.setText("No Camera found.");
+            front.setVisibility(View.GONE);
+            grantCameraPermission.setVisibility(View.GONE);
+        }
+
+    }
+
+    private String getGlVersion() {
+        ActivityManager am =(ActivityManager) getContext().getSystemService(Context.ACTIVITY_SERVICE);
+        ConfigurationInfo info = am.getDeviceConfigurationInfo();
+        int glversion = info.reqGlEsVersion;
+        return String.valueOf(glversion>>16)+"."+String.valueOf(glversion&0xffff);
     }
 
     @OnClick(R.id.more)
@@ -174,6 +187,7 @@ public class DeviceFragment extends Fragment {
         List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
 
         if(supportedPictureSizes.size()>0) {
+            camera.release();
             return supportedPictureSizes.get(0);
         }
         return null;

@@ -92,7 +92,7 @@ public class ConfigurationFragment extends Fragment {
 
         InfoBin bin = new InfoBin();
         bin.name = res.getString(R.string.screen_resolution);
-        bin.value = screenSize.x +" * " +screenSize.y + "("+ConfigurationHelper.getScreenWidthDp(res) +"dp * " +ConfigurationHelper.getScreenHeightDp(res)+"dp)";
+        bin.value = screenSize.x +" * " +screenSize.y + "("+res.getConfiguration().screenWidthDp +"dp * " +res.getConfiguration().screenHeightDp+"dp)";
 
         return bin;
     }
@@ -120,7 +120,7 @@ public class ConfigurationFragment extends Fragment {
     public static InfoBin getDensityDpi(Resources res) {
         InfoBin bin = new InfoBin();
         bin.name = res.getString(R.string.density_dpi);
-        bin.value = String.valueOf(res.getConfiguration().densityDpi);
+        bin.value = String.valueOf(ConfigurationHelper.getDensityDpi(res));
         return bin;
     }
 
