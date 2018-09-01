@@ -5,12 +5,13 @@ import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
-import android.hardware.Camera;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.LoaderManager;
+import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -37,7 +38,7 @@ import butterknife.OnClick;
  *
  */
 
-public class DeviceFragment extends Fragment {
+public class DeviceFragment extends Fragment implements LoaderManager.LoaderCallbacks<List<String>> {
 
     private static final int permissionId = 11;
 
@@ -140,38 +141,10 @@ public class DeviceFragment extends Fragment {
     private void updateCameraInfo() {
 
         if(PermissionUtils.checkPermission(getActivity(), Manifest.permission.CAMERA)) {
-
-            int number = Camera.getNumberOfCameras();
-
-            if(number > 0)  {
-                Camera.CameraInfo info1 = new Camera.CameraInfo();
-                Camera.getCameraInfo(0, info1);
-                Camera.Size size1 = getCameraSize(0);
-                if(info1.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                    backend.setText("Back ("+size1.width+" * "+size1.height+")");
-                } else {
-                    backend.setText("Front ("+size1.width+" * "+size1.height+")");
-                }
-
-                if(number>1) {
-                    Camera.CameraInfo info2 = new Camera.CameraInfo();
-                    Camera.getCameraInfo(1, info2);
-                    Camera.Size size2 = getCameraSize(1);
-                    if(info2.facing == Camera.CameraInfo.CAMERA_FACING_BACK) {
-                        front.setText("Back ("+size2.width+" * "+size2.height+")");
-                    } else {
-                        front.setText("Front ("+size2.width+" * "+size2.height+")");
-                    }
-                    front.setVisibility(View.VISIBLE);
-                } else {
-                    front.setVisibility(View.GONE);
-                }
-                grantCameraPermission.setVisibility(View.GONE);
-            } else {
-                backend.setText("No Camera found.");
-                front.setVisibility(View.GONE);
-                grantCameraPermission.setVisibility(View.GONE);
-            }
+            getLoaderManager().initLoader(0, null, this);
+            grantCameraPermission.setVisibility(View.GONE);
+            backend.setText(R.string.waiting);
+            front.setText(R.string.waiting);
 
         } else {
             backend.setText(R.string.grant_camera_permission_msg);
@@ -181,17 +154,7 @@ public class DeviceFragment extends Fragment {
 
     }
 
-    private Camera.Size getCameraSize(int id) {
-        Camera camera = Camera.open(id);
-        Camera.Parameters parameters = camera.getParameters();
-        List<Camera.Size> supportedPictureSizes = parameters.getSupportedPictureSizes();
 
-        if(supportedPictureSizes.size()>0) {
-            camera.release();
-            return supportedPictureSizes.get(0);
-        }
-        return null;
-    }
 
     private CharSequence getSystemInfo() {
         StringBuilder sb = new StringBuilder();
@@ -231,4 +194,32 @@ public class DeviceFragment extends Fragment {
         }
     }
 
+    @NonNull
+    @Override
+    public Loader<List<String>> onCreateLoader(int id, @Nullable Bundle args) {
+        return new CameraParameterLoader(getContext());
+    }
+
+    @Override
+    public void onLoadFinished(@NonNull Loader<List<String>> loader, List<String> data) {
+
+        if(data.size() > 0)  {
+            backend.setText(data.get(0));
+            if(data.size()>1) {
+                front.setText(data.get(1));
+                front.setVisibility(View.VISIBLE);
+            } else {
+                front.setVisibility(View.GONE);
+            }
+        } else {
+            backend.setText(R.string.no_camera_found);
+            front.setVisibility(View.GONE);
+        }
+
+    }
+
+    @Override
+    public void onLoaderReset(@NonNull Loader<List<String>> loader) {
+
+    }
 }

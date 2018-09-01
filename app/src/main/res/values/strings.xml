@@ -81,4 +81,6 @@
     <string name="agree">Agree</string>
     <string name="disagree">Disagree</string>
     <string name="opengl_version">OpenGL Version</string>
+    <string name="no_camera_found">No Camera found.</string>
+    <string name="waiting">please waiting</string>
 </resources>
