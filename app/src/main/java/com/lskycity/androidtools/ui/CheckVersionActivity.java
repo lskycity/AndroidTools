@@ -12,13 +12,12 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.lskycity.androidtools.AppConstants;
+import com.lskycity.androidtools.BuildConfig;
 import com.lskycity.androidtools.R;
 import com.lskycity.androidtools.app.BaseActivity;
 import com.lskycity.androidtools.app.ToolApplication;
 import com.lskycity.androidtools.apputils.UpgradeUtils;
 import com.lskycity.androidtools.apputils.VersionInfo;
-import com.lskycity.androidtools.utils.AppUtils;
-import com.lskycity.androidtools.utils.IntentUtils;
 
 
 import org.json.JSONException;
@@ -42,7 +41,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         setContentView(R.layout.activity_check_version);
 
         TextView version = (TextView) findViewById(R.id.version_info);
-        version.setText(AppUtils.getVersionName(this));
+        version.setText(BuildConfig.VERSION_NAME);
 
         findViewById(R.id.check_version).setOnClickListener(this);
         findViewById(R.id.forward_to_website).setOnClickListener(this);
@@ -63,7 +62,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         VersionInfo versionInfo = UpgradeUtils.getVersionInfoFromSharedPreference(this);
         if(!TextUtils.isEmpty(versionInfo.checkTime)) {
             lastDateTextView.setText(getString(R.string.last_check_date) + versionInfo.getFormatCheckTime());
-            if(versionInfo.versionCode > AppUtils.getVersionCode(this)) {
+            if(versionInfo.versionCode > BuildConfig.VERSION_CODE) {
 
                 newVersionTipText.setVisibility(View.VISIBLE);
 
@@ -92,11 +91,11 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         if(v.getId() == R.id.check_version) {
             fetchLatestVersion();
         } else if(v.getId() == R.id.new_version_download) {
-            IntentUtils.startUrl(this, (String) v.getTag());
+            com.lskycity.support.utils.IntentUtils.startUrl(this, (String) v.getTag());
         } else if(v.getId() == R.id.forward_to_website) {
-            IntentUtils.startUrl(this, AppConstants.MAIN_PAGE_URL);
+            com.lskycity.support.utils.IntentUtils.startUrl(this, AppConstants.MAIN_PAGE_URL);
         } else if(v.getId() == R.id.share_to_friend) {
-            IntentUtils.shareText(this, getString(R.string.share_to_friend), AppConstants.MAIN_PAGE_URL);
+            com.lskycity.support.utils.IntentUtils.shareText(this, getString(R.string.share_to_friend), AppConstants.MAIN_PAGE_URL);
         }
     }
 

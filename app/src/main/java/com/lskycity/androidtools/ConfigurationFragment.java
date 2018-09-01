@@ -18,7 +18,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.lskycity.androidtools.utils.DensityUtils;
 import com.lskycity.support.utils.ViewUtils;
 
 import java.util.ArrayList;
@@ -66,7 +65,7 @@ public class ConfigurationFragment extends Fragment {
 
         InfoBin bin = new InfoBin();
         bin.name = activity.getString(R.string.navigation_bar_height);
-        bin.value = navigationBarHeight +"(" + DensityUtils.pxTodp(activity, navigationBarHeight)+"dp)";
+        bin.value = navigationBarHeight +"(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, (float) navigationBarHeight) +"dp)";
         return bin;
     }
 
@@ -78,7 +77,7 @@ public class ConfigurationFragment extends Fragment {
 
         InfoBin bin = new InfoBin();
         bin.name = activity.getString(R.string.status_bar_height);
-        bin.value = navigationBarHeight +"(" + DensityUtils.pxTodp(activity, navigationBarHeight)+"dp)";
+        bin.value = navigationBarHeight +"(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, (float) navigationBarHeight) +"dp)";
         return bin;
     }
 

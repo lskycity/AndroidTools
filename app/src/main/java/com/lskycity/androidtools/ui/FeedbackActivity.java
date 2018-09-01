@@ -1,10 +1,8 @@
 package com.lskycity.androidtools.ui;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.support.v7.app.AlertDialog;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -21,18 +19,14 @@ import android.widget.Toast;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.lskycity.androidtools.AppConstants;
 import com.lskycity.androidtools.R;
 import com.lskycity.androidtools.app.BaseActivity;
 import com.lskycity.androidtools.app.ToolApplication;
 import com.lskycity.androidtools.apputils.Feedback;
-import com.lskycity.androidtools.utils.IntentUtils;
 
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
@@ -146,7 +140,7 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.check_new_version) {
-            IntentUtils.startUrl(this, AppConstants.MAIN_PAGE_URL);
+            com.lskycity.support.utils.IntentUtils.startUrl(this, AppConstants.MAIN_PAGE_URL);
         }
     }
 }

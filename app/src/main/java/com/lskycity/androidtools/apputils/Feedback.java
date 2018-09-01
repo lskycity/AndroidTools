@@ -4,8 +4,7 @@ import android.content.Context;
 import android.os.Build;
 
 import com.lskycity.androidtools.BuildConfig;
-import com.lskycity.androidtools.utils.AppUtils;
-import com.lskycity.androidtools.utils.DeviceUtils;
+import com.lskycity.support.utils.DeviceUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,7 +46,7 @@ public class Feedback {
         Feedback object = new Feedback();
         object.deviceId = DeviceUtils.getDeviceId(context);
         object.description = description;
-        object.appVersion = AppUtils.getVersionName(context);
+        object.appVersion = BuildConfig.VERSION_NAME;
         object.deviceBrand = Build.BRAND;
         object.deviceMode = Build.MODEL;
         object.deviceVersion = String.valueOf(Build.VERSION.SDK_INT);

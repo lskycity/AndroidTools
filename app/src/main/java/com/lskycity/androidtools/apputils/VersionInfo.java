@@ -2,8 +2,6 @@ package com.lskycity.androidtools.apputils;
 
 import android.text.TextUtils;
 
-import com.lskycity.androidtools.utils.DateUtils;
-
 
 /**
  * Created by zhaofliu on 1/2/17.
@@ -44,7 +42,7 @@ public class VersionInfo {
     }
 
     public String getFormatCheckTime() {
-        return DateUtils.getTimeString(Long.parseLong(checkTime));
+        return com.lskycity.support.utils.DateUtils.getTimeString(Long.parseLong(checkTime));
     }
 
 }

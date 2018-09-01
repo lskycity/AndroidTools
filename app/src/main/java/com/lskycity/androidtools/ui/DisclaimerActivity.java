@@ -11,15 +11,15 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.lskycity.androidtools.R;
-import com.lskycity.androidtools.utils.AppUtils;
-import com.lskycity.androidtools.utils.SharedPreUtils;
+import com.lskycity.androidtools.apputils.AppSharedPreUtils;
+import com.lskycity.support.utils.AppUtils;
 import com.lskycity.support.utils.ViewUtils;
 
 
 public class DisclaimerActivity extends AppCompatActivity implements View.OnClickListener {
 
     public static boolean shouldStartDisclaimerActivity(Context context) {
-        int versionCode = SharedPreUtils.getInt(context, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
+        int versionCode = com.lskycity.support.utils.SharedPreUtils.getInt(context, AppSharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(context);
         return currentCode > versionCode;
     }
@@ -42,7 +42,7 @@ public class DisclaimerActivity extends AppCompatActivity implements View.OnClic
         agreeButton.setOnClickListener(this);
         disagreeButton.setOnClickListener(this);
 
-        int versionCode = SharedPreUtils.getInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
+        int versionCode = com.lskycity.support.utils.SharedPreUtils.getInt(this, AppSharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(this);
         ViewUtils.setVisible(buttonBar, currentCode > versionCode);
 
@@ -62,7 +62,7 @@ public class DisclaimerActivity extends AppCompatActivity implements View.OnClic
 
     @Override
     public void onBackPressed() {
-        int versionCode = SharedPreUtils.getInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
+        int versionCode = com.lskycity.support.utils.SharedPreUtils.getInt(this, AppSharedPreUtils.KEY_LATEST_APP_VERSION_CODE);
         int currentCode = AppUtils.getVersionCode(this);
         if(versionCode == currentCode) {
             super.onBackPressed();
@@ -72,7 +72,7 @@ public class DisclaimerActivity extends AppCompatActivity implements View.OnClic
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.agree) {
-            SharedPreUtils.putInt(this, SharedPreUtils.KEY_LATEST_APP_VERSION_CODE, AppUtils.getVersionCode(this));
+            com.lskycity.support.utils.SharedPreUtils.putInt(this, AppSharedPreUtils.KEY_LATEST_APP_VERSION_CODE, AppUtils.getVersionCode(this));
             setResult(RESULT_OK);
             supportFinishAfterTransition();
         } else if(v.getId() == R.id.disagree){

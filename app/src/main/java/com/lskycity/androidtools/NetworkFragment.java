@@ -21,7 +21,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lskycity.androidtools.utils.DeviceUtils;
+import com.lskycity.support.utils.DeviceUtils;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -193,7 +193,7 @@ public class NetworkFragment extends Fragment {
 
         InfoBin ipBin = new InfoBin();
         ipBin.name = getString(R.string.wifi_ip_address);
-        if(DeviceUtils.isChromeBookDevice()) {
+        if(DeviceUtils.isInArc()) {
             ipBin.name += "("+getString(R.string.chromebook) +")";
         }
         ipBin.value = Formatter.formatIpAddress(dhcpInfo.ipAddress) +"/"+ip;

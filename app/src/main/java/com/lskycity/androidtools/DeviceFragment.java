@@ -1,11 +1,11 @@
 package com.lskycity.androidtools;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.ConfigurationInfo;
 import android.hardware.Camera;
-import android.hardware.camera2.CameraManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -20,8 +20,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.lskycity.androidtools.utils.DeviceUtils;
 import com.lskycity.androidtools.utils.PermissionUtils;
+import com.lskycity.support.utils.DeviceUtils;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -73,8 +73,8 @@ public class DeviceFragment extends Fragment {
     private void updateInfo() {
         deviceName.setText(Build.BRAND+" "+Build.MODEL);
         androidVersion.setText(getString(R.string.android_version)+": " + Build.VERSION.RELEASE + " / " + Build.VERSION.SDK_INT);
-        if(PermissionUtils.checkPermission(getActivity(), PermissionUtils.PHONE)) {
-            imei.setText("IMEI: " +DeviceUtils.getIMEI(getActivity()));
+        if(PermissionUtils.checkPermission(getActivity(), Manifest.permission.READ_PHONE_STATE)) {
+            imei.setText("IMEI: " + DeviceUtils.getIMEI(getActivity()));
         } else {
             imei.setText(getString(R.string.serial)+": " + Build.SERIAL);
         }
@@ -134,12 +134,12 @@ public class DeviceFragment extends Fragment {
 
     @OnClick(R.id.grant_camera_permission)
     public void clickGrantCameraPermission(View view) {
-        requestPermissions(PermissionUtils.PERMISSION_MAP.get(PermissionUtils.CAMERA), permissionId);
+        requestPermissions(new String[]{Manifest.permission.CAMERA}, permissionId);
     }
 
     private void updateCameraInfo() {
 
-        if(PermissionUtils.checkPermission(getActivity(), PermissionUtils.CAMERA)) {
+        if(PermissionUtils.checkPermission(getActivity(), Manifest.permission.CAMERA)) {
 
             int number = Camera.getNumberOfCameras();
 

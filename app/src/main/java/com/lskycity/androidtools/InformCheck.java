@@ -6,10 +6,8 @@ import android.text.TextUtils;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.lskycity.androidtools.app.ToolApplication;
 import com.lskycity.androidtools.utils.CharsetJsonRequest;
-import com.lskycity.androidtools.utils.SharedPreUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -28,7 +26,7 @@ public class InformCheck {
 
 
     public static boolean shouldCheckInform(Context context) {
-        String lastCheckTime = SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME);
+        String lastCheckTime = com.lskycity.support.utils.SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME);
 
         return TextUtils.isEmpty(lastCheckTime)
                 || (System.currentTimeMillis() - Long.parseLong(lastCheckTime)) > TIME_GREP_CHECK_INFORM;
@@ -76,16 +74,16 @@ public class InformCheck {
     }
 
     public static void putToSharedPre(Context context, Inform info) {
-        SharedPreUtils.putString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME, info.checkTime);
-        SharedPreUtils.putString(context, AppConstants.SHARED_KEY_INFORM_ID, info.id);
-        SharedPreUtils.putString(context, AppConstants.SHARED_KEY_INFORM_CONTENT, info.content);
+        com.lskycity.support.utils.SharedPreUtils.putString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME, info.checkTime);
+        com.lskycity.support.utils.SharedPreUtils.putString(context, AppConstants.SHARED_KEY_INFORM_ID, info.id);
+        com.lskycity.support.utils.SharedPreUtils.putString(context, AppConstants.SHARED_KEY_INFORM_CONTENT, info.content);
     }
 
     public static Inform getInformFromSharedPreference(Context context) {
         Inform info = new Inform();
-        info.id = SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_ID);
-        info.content = SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CONTENT);
-        info.checkTime = SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME);
+        info.id = com.lskycity.support.utils.SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_ID);
+        info.content = com.lskycity.support.utils.SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CONTENT);
+        info.checkTime = com.lskycity.support.utils.SharedPreUtils.getString(context, AppConstants.SHARED_KEY_INFORM_CHECK_TIME);
         return info;
     }
 
