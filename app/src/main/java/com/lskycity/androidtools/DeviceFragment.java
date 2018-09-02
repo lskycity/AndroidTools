@@ -144,7 +144,7 @@ public class DeviceFragment extends Fragment implements LoaderManager.LoaderCall
             getLoaderManager().initLoader(0, null, this);
             grantCameraPermission.setVisibility(View.GONE);
             backend.setText(R.string.loading);
-            front.setText(R.string.waiting);
+            front.setText(R.string.loading);
 
         } else {
             backend.setText(R.string.grant_camera_permission_msg);
