@@ -96,11 +96,7 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         } else if(v.getId() == R.id.new_version_download) {
             IntentUtils.startUrl(this, (String) v.getTag());
         } else if(v.getId() == R.id.forward_to_website) {
-            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-            builder.addDefaultShareMenuItem();
-            CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(this, Uri.parse(AppConstants.MAIN_PAGE_URL));
+            AppConstants.startUrlWithCustomTab(this, AppConstants.MAIN_PAGE_URL);
         } else if(v.getId() == R.id.share_to_friend) {
             IntentUtils.shareText(this, getString(R.string.share_to_friend), AppConstants.MAIN_PAGE_URL);
         }

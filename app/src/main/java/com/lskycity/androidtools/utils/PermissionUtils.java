@@ -26,7 +26,6 @@ import java.util.Map;
  */
 @TargetApi(Build.VERSION_CODES.M)
 public class PermissionUtils {
-    public static final int PERMISSION_PHONE_REQUEST = 0x10;
 
     public static boolean checkPermission(@NonNull Context context, @NonNull String... permissions) {
         for(String p : permissions) {

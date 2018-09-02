@@ -141,11 +141,7 @@ public class FeedbackActivity extends BaseActivity implements TextWatcher, View.
     @Override
     public void onClick(View v) {
         if(v.getId() == R.id.check_new_version) {
-            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
-            builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
-            builder.addDefaultShareMenuItem();
-            CustomTabsIntent customTabsIntent = builder.build();
-            customTabsIntent.launchUrl(this, Uri.parse(AppConstants.MAIN_PAGE_URL));
+            AppConstants.startUrlWithCustomTab(this, AppConstants.MAIN_PAGE_URL);
         }
     }
 }
