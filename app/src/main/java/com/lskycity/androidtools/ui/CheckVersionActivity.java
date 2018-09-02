@@ -1,7 +1,9 @@
 package com.lskycity.androidtools.ui;
 
 import android.annotation.SuppressLint;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.customtabs.CustomTabsIntent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -18,6 +20,7 @@ import com.lskycity.androidtools.app.BaseActivity;
 import com.lskycity.androidtools.app.ToolApplication;
 import com.lskycity.androidtools.apputils.UpgradeUtils;
 import com.lskycity.androidtools.apputils.VersionInfo;
+import com.lskycity.support.utils.IntentUtils;
 
 
 import org.json.JSONException;
@@ -91,11 +94,15 @@ public class CheckVersionActivity extends BaseActivity implements View.OnClickLi
         if(v.getId() == R.id.check_version) {
             fetchLatestVersion();
         } else if(v.getId() == R.id.new_version_download) {
-            com.lskycity.support.utils.IntentUtils.startUrl(this, (String) v.getTag());
+            IntentUtils.startUrl(this, (String) v.getTag());
         } else if(v.getId() == R.id.forward_to_website) {
-            com.lskycity.support.utils.IntentUtils.startUrl(this, AppConstants.MAIN_PAGE_URL);
+            CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
+            builder.setToolbarColor(getResources().getColor(R.color.colorPrimary));
+            builder.addDefaultShareMenuItem();
+            CustomTabsIntent customTabsIntent = builder.build();
+            customTabsIntent.launchUrl(this, Uri.parse(AppConstants.MAIN_PAGE_URL));
         } else if(v.getId() == R.id.share_to_friend) {
-            com.lskycity.support.utils.IntentUtils.shareText(this, getString(R.string.share_to_friend), AppConstants.MAIN_PAGE_URL);
+            IntentUtils.shareText(this, getString(R.string.share_to_friend), AppConstants.MAIN_PAGE_URL);
         }
     }
 
