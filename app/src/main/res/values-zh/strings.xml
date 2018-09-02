@@ -81,6 +81,6 @@
     <string name="agree">同意</string>
     <string name="disagree">不同意</string>
     <string name="no_camera_found">未发现摄像头</string>
-    <string name="waiting">请稍等</string>
+    <string name="loading">加载中…</string>
 
 </resources>
