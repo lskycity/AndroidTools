@@ -49,6 +49,7 @@ public class DeviceFragment extends Fragment implements LoaderManager.LoaderCall
     @BindView(R.id.cpu_abi) TextView cpuAbi;
     @BindView(R.id.support_32) TextView support32;
     @BindView(R.id.support_64) TextView support64;
+    @BindView(R.id.cpu_feature) TextView cpuFeature;
 
     @BindView(R.id.backend) TextView backend;
     @BindView(R.id.front) TextView front;
@@ -95,6 +96,8 @@ public class DeviceFragment extends Fragment implements LoaderManager.LoaderCall
                 support64.setVisibility(View.GONE);
             }
         }
+
+        cpuFeature.setText(getCpuFeature());
 
         glVersion.setText(getGlVersion());
 
@@ -221,5 +224,16 @@ public class DeviceFragment extends Fragment implements LoaderManager.LoaderCall
     @Override
     public void onLoaderReset(@NonNull Loader<List<String>> loader) {
 
+    }
+
+    /**
+     * A native method that is implemented by the 'native-lib' native library,
+     * which is packaged with this application.
+     */
+    public native String getCpuFeature();
+
+
+    static {
+        System.loadLibrary("native-lib");
     }
 }
