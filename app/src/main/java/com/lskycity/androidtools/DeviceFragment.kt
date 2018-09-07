@@ -27,9 +27,6 @@ import com.lskycity.support.utils.DeviceUtils
 import java.util.ArrayList
 import java.util.Arrays
 
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 
 /**
  * Created by zhaofliu on 10/1/16.
@@ -77,7 +74,6 @@ class DeviceFragment : Fragment(), LoaderManager.LoaderCallbacks<ArrayList<Strin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ButterKnife.bind(this, view)
         deviceName = view.findViewById(R.id.device_name) as TextView
         androidVersion = view.findViewById(R.id.android_version) as TextView
         imei = view.findViewById(R.id.imei) as TextView
