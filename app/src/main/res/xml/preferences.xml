@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceScreen
+        android:icon="@drawable/ic_mail_black_24dp"
         android:key="publish_inform"
         android:title="@string/publish_inform" >
         <intent
@@ -8,6 +9,7 @@
             android:targetPackage="com.lskycity.androidtools" />
     </PreferenceScreen>
     <PreferenceScreen
+        android:icon="@drawable/ic_info_black_24dp"
         android:key="app_version"
         android:summary="@string/current_version_and_have_new_version"
         android:title="@string/version_info" >
@@ -15,12 +17,13 @@
             android:targetClass="com.lskycity.androidtools.ui.CheckVersionActivity"
             android:targetPackage="com.lskycity.androidtools" />
     </PreferenceScreen>
-    <PreferenceScreen android:title="@string/disclaimer">
+    <PreferenceScreen android:title="@string/disclaimer"
+        android:icon="@drawable/ic_announcement_black_24dp">
         <intent
             android:targetClass="com.lskycity.androidtools.ui.DisclaimerActivity"
             android:targetPackage="com.lskycity.androidtools" />
     </PreferenceScreen>
-    <PreferenceScreen android:title="@string/feedback">
+    <PreferenceScreen android:title="@string/feedback" >
         <intent
             android:targetClass="com.lskycity.androidtools.ui.FeedbackActivity"
             android:targetPackage="com.lskycity.androidtools" />

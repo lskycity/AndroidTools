@@ -4,7 +4,6 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.ActivityManager
 import android.content.Context
-import android.content.pm.ConfigurationInfo
 import android.os.Build
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -16,16 +15,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-
 import com.lskycity.androidtools.utils.ClassUtils
 import com.lskycity.androidtools.utils.PermissionUtils
 import com.lskycity.support.utils.DeviceUtils
-
-import java.util.ArrayList
-import java.util.Arrays
+import java.util.*
 
 
 /**
@@ -35,20 +30,20 @@ import java.util.Arrays
 
 class DeviceFragment : Fragment(), LoaderManager.LoaderCallbacks<ArrayList<String>> {
 
-    private var deviceName: TextView? = null
-    private var androidVersion: TextView? = null
-    private var imei: TextView? = null
+    private lateinit var deviceName: TextView
+    private lateinit var androidVersion: TextView
+    private lateinit var imei: TextView
 
-    private var support32: TextView? = null
-    private var support64: TextView? = null
-    private var cpuFeature: TextView? = null
+    private lateinit var support32: TextView
+    private lateinit var support64: TextView
+    private lateinit var cpuFeature: TextView
 
-    private var backend: TextView? = null
-    private var front: TextView? = null
-    private var grantCameraPermission: Button? = null
+    private lateinit var backend: TextView
+    private lateinit var front: TextView
+    private lateinit var grantCameraPermission: Button
 
-    private var more: TextView? = null
-    private var glVersion: TextView? = null
+    private lateinit var more: TextView
+    private lateinit var glVersion: TextView
 
 
     private val systemInfo: CharSequence
@@ -85,10 +80,10 @@ class DeviceFragment : Fragment(), LoaderManager.LoaderCallbacks<ArrayList<Strin
         backend = view.findViewById(R.id.backend) as TextView
         front = view.findViewById(R.id.front) as TextView
         grantCameraPermission = view.findViewById(R.id.grant_camera_permission) as Button
-        grantCameraPermission!!.setOnClickListener { requestPermissions(arrayOf(Manifest.permission.CAMERA), permissionId)}
+        grantCameraPermission.setOnClickListener { requestPermissions(arrayOf(Manifest.permission.CAMERA), permissionId)}
 
         more = view.findViewById(R.id.more) as TextView
-        more!!.setOnClickListener {
+        more.setOnClickListener {
             clickMore()
         }
         glVersion = view.findViewById(R.id.gl_version) as TextView
@@ -98,41 +93,41 @@ class DeviceFragment : Fragment(), LoaderManager.LoaderCallbacks<ArrayList<Strin
 
     @SuppressLint("SetTextI18n")
     private fun updateInfo() {
-        deviceName!!.text = Build.BRAND + " " + Build.MODEL
-        androidVersion!!.text = getString(R.string.android_version) + ": " + Build.VERSION.RELEASE + " / " + Build.VERSION.SDK_INT
+        deviceName.text = Build.BRAND + " " + Build.MODEL
+        androidVersion.text = getString(R.string.android_version) + ": " + Build.VERSION.RELEASE + " / " + Build.VERSION.SDK_INT
         if (PermissionUtils.checkPermission(activity!!, Manifest.permission.READ_PHONE_STATE)) {
-            imei!!.text = "IMEI: " + DeviceUtils.getIMEI(activity!!)
+            imei.text = "IMEI: " + DeviceUtils.getIMEI(activity!!)
         } else {
-            imei!!.text = getString(R.string.serial) + ": " + Build.SERIAL
+            imei.text = getString(R.string.serial) + ": " + Build.SERIAL
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            support32!!.text = "64 ABI: " + Arrays.toString(Build.SUPPORTED_64_BIT_ABIS)
+            support32.text = "64 ABI: " + Arrays.toString(Build.SUPPORTED_64_BIT_ABIS)
         } else {
-            support32!!.text = "ABI: " + Build.CPU_ABI
+            support32.text = "ABI: " + Build.CPU_ABI
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            support64!!.text = "32 ABI: " + Arrays.toString(Build.SUPPORTED_32_BIT_ABIS)
+            support64.text = "32 ABI: " + Arrays.toString(Build.SUPPORTED_32_BIT_ABIS)
         } else {
             //noinspection deprecated
             if (!TextUtils.isEmpty(Build.CPU_ABI2)) {
-                support64!!.text = "ABI2: " + Build.CPU_ABI2
+                support64.text = "ABI2: " + Build.CPU_ABI2
             } else {
-                support64!!.visibility = View.GONE
+                support64.visibility = View.GONE
             }
         }
 
-        cpuFeature!!.text = getCpuFeature()
+        cpuFeature.text = getCpuFeature()
 
-        glVersion!!.text = getGlVersion()
+        glVersion.text = getGlVersion()
 
         try {
             updateCameraInfo()
         } catch (e: Exception) {
-            backend!!.text = "No Camera found."
-            front!!.visibility = View.GONE
-            grantCameraPermission!!.visibility = View.GONE
+            backend.text = "No Camera found."
+            front.visibility = View.GONE
+            grantCameraPermission.visibility = View.GONE
         }
 
     }
@@ -164,14 +159,14 @@ class DeviceFragment : Fragment(), LoaderManager.LoaderCallbacks<ArrayList<Strin
 
         if (PermissionUtils.checkPermission(activity!!, Manifest.permission.CAMERA)) {
             loaderManager.initLoader(0, null, this)
-            grantCameraPermission!!.visibility = View.GONE
-            backend!!.setText(R.string.loading)
-            front!!.setText(R.string.loading)
+            grantCameraPermission.visibility = View.GONE
+            backend.setText(R.string.loading)
+            front.setText(R.string.loading)
 
         } else {
-            backend!!.setText(R.string.grant_camera_permission_msg)
-            front!!.visibility = View.GONE
-            grantCameraPermission!!.visibility = View.VISIBLE
+            backend.setText(R.string.grant_camera_permission_msg)
+            front.visibility = View.GONE
+            grantCameraPermission.visibility = View.VISIBLE
         }
 
     }
@@ -183,16 +178,16 @@ class DeviceFragment : Fragment(), LoaderManager.LoaderCallbacks<ArrayList<Strin
     override fun onLoadFinished(loader: Loader<ArrayList<String>>, data: ArrayList<String>) {
 
         if (data.size > 0) {
-            backend!!.text = data[0]
+            backend.text = data[0]
             if (data.size > 1) {
-                front!!.text = data[1]
-                front!!.visibility = View.VISIBLE
+                front.text = data[1]
+                front.visibility = View.VISIBLE
             } else {
-                front!!.visibility = View.GONE
+                front.visibility = View.GONE
             }
         } else {
-            backend!!.setText(R.string.no_camera_found)
-            front!!.visibility = View.GONE
+            backend.setText(R.string.no_camera_found)
+            front.visibility = View.GONE
         }
 
     }

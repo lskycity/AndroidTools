@@ -1,5 +1,7 @@
 package com.lskycity.androidtools
 
+import android.os.Parcel
+import android.os.Parcelable
 import android.util.Pair
 
 /**
@@ -9,31 +11,27 @@ import android.util.Pair
  * @since 1/29/17
  */
 
-class InfoBin {
-    var name: String? = null
-    var value: String? = null
+data class InfoBin(var name: String?, var value: String?) : Parcelable {
 
-    override fun equals(o: Any?): Boolean {
-        if (this === o) return true
-        if (o == null || javaClass != o.javaClass) return false
+    constructor(parcel: Parcel) : this(parcel.readString(), parcel.readString())
+    constructor() : this("", "")
 
-        val bin = o as InfoBin?
-
-        if (if (name != null) name != bin!!.name else bin!!.name != null) return false
-        return if (value != null) value == bin.value else bin.value == null
-
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(name)
+        parcel.writeString(value)
     }
 
-    override fun hashCode(): Int {
-        var result = if (name != null) name!!.hashCode() else 0
-        result = 31 * result + if (value != null) value!!.hashCode() else 0
-        return result
+    override fun describeContents(): Int {
+        return 0
     }
 
-    override fun toString(): String {
-        return "InfoBin{" +
-                "name='" + name + '\''.toString() +
-                ", value='" + value + '\''.toString() +
-                '}'.toString() + "\n"
+    companion object CREATOR : Parcelable.Creator<InfoBin> {
+        override fun createFromParcel(parcel: Parcel): InfoBin {
+            return InfoBin(parcel)
+        }
+
+        override fun newArray(size: Int): Array<InfoBin?> {
+            return arrayOfNulls(size)
+        }
     }
 }

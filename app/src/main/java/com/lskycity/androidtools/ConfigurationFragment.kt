@@ -91,10 +91,9 @@ class ConfigurationFragment : Fragment() {
                     "dimen", "android")
             val navigationBarHeight = resources.getDimensionPixelSize(resourceId)
 
-            val bin = InfoBin()
-            bin.name = activity.getString(R.string.navigation_bar_height)
-            bin.value = navigationBarHeight.toString() + "(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
-            return bin
+            val name = activity.getString(R.string.navigation_bar_height)
+            val value = navigationBarHeight.toString() + "(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
+            return InfoBin(name, value)
         }
 
         fun getStatusBarHeight(activity: Activity): InfoBin {
@@ -103,10 +102,9 @@ class ConfigurationFragment : Fragment() {
                     "dimen", "android")
             val navigationBarHeight = resources.getDimensionPixelSize(resourceId)
 
-            val bin = InfoBin()
-            bin.name = activity.getString(R.string.status_bar_height)
-            bin.value = navigationBarHeight.toString() + "(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
-            return bin
+            val name = activity.getString(R.string.status_bar_height)
+            val value = navigationBarHeight.toString() + "(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
+            return InfoBin(name, value)
         }
 
         fun getScreenResolution(activity: Activity): InfoBin {
@@ -118,45 +116,39 @@ class ConfigurationFragment : Fragment() {
 
             val res = activity.resources
 
-            val bin = InfoBin()
-            bin.name = res.getString(R.string.screen_resolution)
-            bin.value = screenSize.x.toString() + " * " + screenSize.y + "(" + res.configuration.screenWidthDp + "dp * " + res.configuration.screenHeightDp + "dp)"
+            val name = res.getString(R.string.screen_resolution)
+            val value = screenSize.x.toString() + " * " + screenSize.y + "(" + res.configuration.screenWidthDp + "dp * " + res.configuration.screenHeightDp + "dp)"
 
-            return bin
+            return InfoBin(name, value)
         }
 
 
         fun getLocals(res: Resources): InfoBin {
-            val bin = InfoBin()
-            bin.name = res.getString(R.string.locals)
+            val name = res.getString(R.string.locals)
+            val value : String
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                bin.value = res.configuration.locales.toString()
+                value = res.configuration.locales.toString()
             } else {
-                bin.value = res.configuration.locale.toString()
+                value = res.configuration.locale.toString()
             }
 
-            return bin
+            return InfoBin(name, value)
         }
 
         fun getFontScale(res: Resources): InfoBin {
-            val bin = InfoBin()
-            bin.name = res.getString(R.string.font_scale)
-            bin.value = res.configuration.fontScale.toString()
-            return bin
+            return InfoBin(res.getString(R.string.font_scale), res.configuration.fontScale.toString())
         }
 
         fun getDensityDpi(res: Resources): InfoBin {
-            val bin = InfoBin()
-            bin.name = res.getString(R.string.density_dpi)
-            bin.value = ConfigurationHelper.getDensityDpi(res).toString()
-            return bin
+            val name = res.getString(R.string.density_dpi)
+            val value = ConfigurationHelper.getDensityDpi(res).toString()
+            return InfoBin(name, value)
         }
 
         fun getOthers(res: Resources): InfoBin {
-            val bin = InfoBin()
-            bin.name = res.getString(R.string.others)
-            bin.value = res.configuration.toString()
-            return bin
+            val name = res.getString(R.string.others)
+            val value = res.configuration.toString()
+            return InfoBin(name, value)
         }
     }
 

@@ -37,7 +37,7 @@ class NetworkFragment : Fragment() {
 
     private val infoBinArrayList = ArrayList<InfoBin>()
 
-    private var adapter: NetAdapter? = null
+    private lateinit var adapter: NetAdapter
 
     private val networkIpAddressFormInterface: ArrayList<InfoBin>
         get() {
@@ -159,7 +159,7 @@ class NetworkFragment : Fragment() {
             }
             infoBinArrayList.add(dnsInfo)
         }
-        adapter!!.notifyDataSetChanged()
+        adapter.notifyDataSetChanged()
 
     }
 
@@ -217,49 +217,36 @@ class NetworkFragment : Fragment() {
 
     private fun getNetworkIpAddressFormWifiManager(context: Context): ArrayList<InfoBin> {
 
-        val list = ArrayList<InfoBin>(5)
+        val list = ArrayList<InfoBin>(7)
 
-        val wm = context.getSystemService(WIFI_SERVICE) as WifiManager
+        val wm = context.applicationContext.getSystemService(WIFI_SERVICE) as WifiManager
         val ip = Formatter.formatIpAddress(wm.connectionInfo.ipAddress)
 
         val dhcpInfo = wm.dhcpInfo
 
-        val ipBin = InfoBin()
-        ipBin.name = getString(R.string.wifi_ip_address)
+        var name = getString(R.string.wifi_ip_address)
         if (DeviceUtils.isInArc()) {
-            ipBin.name = ipBin.name + "(" + getString(R.string.chromebook) + ")"
+            name = name + "(" + getString(R.string.chromebook) + ")"
         }
-        ipBin.value = Formatter.formatIpAddress(dhcpInfo.ipAddress) + "/" + ip
-        list.add(ipBin)
+        val value = Formatter.formatIpAddress(dhcpInfo.ipAddress) + "/" + ip
+        list.add(InfoBin(name, value))
 
-        val gateway = InfoBin()
-        gateway.name = getString(R.string.gateway)
-        gateway.value = Formatter.formatIpAddress(dhcpInfo.gateway)
+        val gateway = InfoBin(getString(R.string.gateway), Formatter.formatIpAddress(dhcpInfo.gateway))
         list.add(gateway)
 
-        val netmask = InfoBin()
-        netmask.name = getString(R.string.netmask)
-        netmask.value = Formatter.formatIpAddress(dhcpInfo.netmask)
+        val netmask = InfoBin(getString(R.string.netmask), Formatter.formatIpAddress(dhcpInfo.netmask))
         list.add(netmask)
 
-        val dns1 = InfoBin()
-        dns1.name = getString(R.string.dns1)
-        dns1.value = Formatter.formatIpAddress(dhcpInfo.dns1)
+        val dns1 = InfoBin(getString(R.string.dns1), Formatter.formatIpAddress(dhcpInfo.dns1))
         list.add(dns1)
 
-        val dns2 = InfoBin()
-        dns2.name = getString(R.string.dns2)
-        dns2.value = Formatter.formatIpAddress(dhcpInfo.dns2)
+        val dns2 = InfoBin(getString(R.string.dns2), Formatter.formatIpAddress(dhcpInfo.dns2))
         list.add(dns2)
 
-        val serverAddress = InfoBin()
-        serverAddress.name = getString(R.string.server_address)
-        serverAddress.value = Formatter.formatIpAddress(dhcpInfo.serverAddress)
+        val serverAddress = InfoBin(getString(R.string.server_address), Formatter.formatIpAddress(dhcpInfo.serverAddress))
         list.add(serverAddress)
 
-        val leaseDuration = InfoBin()
-        leaseDuration.name = getString(R.string.lease_duration)
-        leaseDuration.value = Formatter.formatIpAddress(dhcpInfo.leaseDuration)
+        val leaseDuration = InfoBin(getString(R.string.lease_duration), Formatter.formatIpAddress(dhcpInfo.leaseDuration))
         list.add(leaseDuration)
 
         return list
