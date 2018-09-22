@@ -52,7 +52,7 @@ object InformCheck {
         }, Response.ErrorListener { })
 
 
-        ToolApplication.get().getRequestQueue().add(jsonObjectRequest)
+        ToolApplication.get().requestQueue.add(jsonObjectRequest)
     }
 
 

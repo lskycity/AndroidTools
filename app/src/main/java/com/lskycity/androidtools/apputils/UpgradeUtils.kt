@@ -1,16 +1,13 @@
 package com.lskycity.androidtools.apputils
 
-import android.content.Context
 
+import android.content.Context
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.lskycity.androidtools.AppConstants
 import com.lskycity.androidtools.BuildConfig
 import com.lskycity.androidtools.app.ToolApplication
 import com.lskycity.support.utils.SharedPreUtils
-
-
 import org.json.JSONException
 import org.json.JSONObject
 
@@ -59,15 +56,15 @@ object UpgradeUtils {
         if (currentTime - versionInfo.getCheckTimeLong() > CHECK_VERSION_TIME_GAP) {
             val jsonObjectRequest = JsonObjectRequest(AppConstants.CHECK_VERSION_URL, null, Response.Listener { jsonObject ->
                 try {
-                    val versionInfo = UpgradeUtils.getVersionInfo(jsonObject)
-                    UpgradeUtils.putToSharedPre(ToolApplication.get(), versionInfo)
+                    val info = UpgradeUtils.getVersionInfo(jsonObject)
+                    UpgradeUtils.putToSharedPre(ToolApplication.get(), info)
 
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
             }, Response.ErrorListener { })
 
-            ToolApplication.get().getRequestQueue().add(jsonObjectRequest)
+            ToolApplication.get().requestQueue.add(jsonObjectRequest)
         }
 
     }

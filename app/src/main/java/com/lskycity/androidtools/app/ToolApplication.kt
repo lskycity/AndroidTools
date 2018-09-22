@@ -1,8 +1,6 @@
 package com.lskycity.androidtools.app
 
 import android.app.Application
-import android.content.Context
-
 import com.android.volley.RequestQueue
 import com.android.volley.toolbox.Volley
 
@@ -12,13 +10,7 @@ import com.android.volley.toolbox.Volley
  */
 class ToolApplication : Application() {
 
-    private var requestQueue: RequestQueue? = null
-
-    fun getRequestQueue(): RequestQueue {
-        return requestQueue ?: synchronized(this) {
-            requestQueue ?: Volley.newRequestQueue(this).also { requestQueue = it }
-        }
-    }
+    val requestQueue: RequestQueue by lazy { Volley.newRequestQueue(this) }
 
     init {
         instance = this

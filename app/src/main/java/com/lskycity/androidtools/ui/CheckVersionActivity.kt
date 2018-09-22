@@ -1,17 +1,14 @@
 package com.lskycity.androidtools.ui
 
+
 import android.annotation.SuppressLint
-import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.CustomTabsIntent
 import android.text.TextUtils
 import android.view.View
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
-
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.lskycity.androidtools.AppConstants
 import com.lskycity.androidtools.BuildConfig
@@ -19,12 +16,8 @@ import com.lskycity.androidtools.R
 import com.lskycity.androidtools.app.BaseActivity
 import com.lskycity.androidtools.app.ToolApplication
 import com.lskycity.androidtools.apputils.UpgradeUtils
-import com.lskycity.androidtools.apputils.VersionInfo
 import com.lskycity.support.utils.IntentUtils
-
-
 import org.json.JSONException
-import org.json.JSONObject
 
 /**
  * Created by zhaofliu on 1/2/17.
@@ -33,9 +26,9 @@ import org.json.JSONObject
 
 class CheckVersionActivity : BaseActivity(), View.OnClickListener, View.OnLongClickListener {
 
-    private var lastDateTextView: TextView? = null
-    private var newVersionTipText: TextView? = null
-    private var download: Button? = null
+    private lateinit var lastDateTextView: TextView
+    private lateinit var newVersionTipText: TextView
+    private lateinit var download: Button
 
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,8 +43,8 @@ class CheckVersionActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
         findViewById<View>(R.id.share_to_friend).setOnClickListener(this)
 
         download = findViewById<View>(R.id.new_version_download) as Button
-        download!!.setOnClickListener(this)
-        download!!.setOnLongClickListener(this)
+        download.setOnClickListener(this)
+        download.setOnLongClickListener(this)
 
         lastDateTextView = findViewById<View>(R.id.check_version_information) as TextView
         newVersionTipText = findViewById<View>(R.id.new_version_text) as TextView
@@ -63,28 +56,28 @@ class CheckVersionActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
     private fun setupNewVersionArea(firstSetup: Boolean) {
         val versionInfo = UpgradeUtils.getVersionInfoFromSharedPreference(this)
         if (!TextUtils.isEmpty(versionInfo.checkTime)) {
-            lastDateTextView!!.text = getString(R.string.last_check_date) + versionInfo.formatCheckTime
+            lastDateTextView.text = getString(R.string.last_check_date) + versionInfo.formatCheckTime
             if (versionInfo.versionCode > BuildConfig.VERSION_CODE) {
 
-                newVersionTipText!!.visibility = View.VISIBLE
+                newVersionTipText.visibility = View.VISIBLE
 
-                download!!.visibility = View.VISIBLE
-                download!!.tag = versionInfo.downloadUrl
+                download.visibility = View.VISIBLE
+                download.tag = versionInfo.downloadUrl
 
-                newVersionTipText!!.text = getString(R.string.have_new_version, versionInfo.versionName)
+                newVersionTipText.text = getString(R.string.have_new_version, versionInfo.versionName)
 
             } else if (firstSetup) {
-                newVersionTipText!!.visibility = View.GONE
-                download!!.visibility = View.GONE
+                newVersionTipText.visibility = View.GONE
+                download.visibility = View.GONE
             } else {
-                newVersionTipText!!.visibility = View.VISIBLE
-                newVersionTipText!!.setText(R.string.no_new_version)
-                download!!.visibility = View.GONE
+                newVersionTipText.visibility = View.VISIBLE
+                newVersionTipText.setText(R.string.no_new_version)
+                download.visibility = View.GONE
             }
         } else {
-            lastDateTextView!!.text = getString(R.string.last_check_date) + getString(R.string.no_check_date)
-            newVersionTipText!!.visibility = View.GONE
-            download!!.visibility = View.GONE
+            lastDateTextView.text = getString(R.string.last_check_date) + getString(R.string.no_check_date)
+            newVersionTipText.visibility = View.GONE
+            download.visibility = View.GONE
         }
     }
 
@@ -111,7 +104,7 @@ class CheckVersionActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
             }
         }, Response.ErrorListener { })
 
-        ToolApplication.get().getRequestQueue().add(jsonObjectRequest)
+        ToolApplication.get().requestQueue.add(jsonObjectRequest)
 
     }
 

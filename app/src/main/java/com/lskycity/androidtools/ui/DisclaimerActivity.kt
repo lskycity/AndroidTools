@@ -34,10 +34,7 @@ class DisclaimerActivity : AppCompatActivity(), View.OnClickListener {
         val currentCode = AppUtils.getVersionCode(this)
         ViewUtils.setVisible(buttonBar, currentCode > versionCode)
 
-        val actionBar = supportActionBar
-        if (actionBar != null && currentCode > versionCode) {
-            actionBar.setDisplayHomeAsUpEnabled(false)
-        } else actionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayHomeAsUpEnabled(currentCode <= versionCode)
     }
 
     override fun onSupportNavigateUp(): Boolean {

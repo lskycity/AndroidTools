@@ -2,14 +2,9 @@ package com.lskycity.androidtools.ui
 
 import android.annotation.SuppressLint
 import android.graphics.Color
-import android.net.Uri
 import android.os.Bundle
-import android.support.customtabs.CustomTabsIntent
-import android.text.Editable
-import android.text.Spannable
-import android.text.SpannableString
-import android.text.TextUtils
-import android.text.TextWatcher
+import android.support.v4.content.res.ResourcesCompat
+import android.text.*
 import android.text.style.UnderlineSpan
 import android.view.Menu
 import android.view.MenuItem
@@ -17,18 +12,14 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-
 import com.android.volley.Request
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.android.volley.toolbox.JsonObjectRequest
 import com.lskycity.androidtools.AppConstants
 import com.lskycity.androidtools.R
 import com.lskycity.androidtools.app.BaseActivity
 import com.lskycity.androidtools.app.ToolApplication
 import com.lskycity.androidtools.apputils.Feedback
-
-import org.json.JSONObject
 
 /**
  * collect feedback from user
@@ -39,8 +30,8 @@ import org.json.JSONObject
 
 class FeedbackActivity : BaseActivity(), TextWatcher, View.OnClickListener {
 
-    private var feedback: EditText? = null
-    private var textCount: TextView? = null
+    private lateinit var feedback: EditText
+    private lateinit var textCount: TextView
 
     private var clickTime: Long = 0
 
@@ -48,7 +39,7 @@ class FeedbackActivity : BaseActivity(), TextWatcher, View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_feedback)
         feedback = findViewById<View>(R.id.feedback_content) as EditText
-        feedback!!.addTextChangedListener(this)
+        feedback.addTextChangedListener(this)
         textCount = findViewById<View>(R.id.text_count) as TextView
 
 
@@ -71,7 +62,7 @@ class FeedbackActivity : BaseActivity(), TextWatcher, View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_send) {
-            sendFeedback(feedback!!.text.toString())
+            sendFeedback(feedback.text.toString())
             return true
         }
         return false
@@ -98,7 +89,7 @@ class FeedbackActivity : BaseActivity(), TextWatcher, View.OnClickListener {
 
                 Response.ErrorListener { volleyError -> Toast.makeText(this@FeedbackActivity, getString(R.string.send_feedback_fail) + ", " + volleyError.message, Toast.LENGTH_LONG).show() })
 
-        ToolApplication.get().getRequestQueue().add(request)
+        ToolApplication.get().requestQueue.add(request)
         Toast.makeText(this@FeedbackActivity, R.string.sending_feedback, Toast.LENGTH_SHORT).show()
 
     }
@@ -113,11 +104,11 @@ class FeedbackActivity : BaseActivity(), TextWatcher, View.OnClickListener {
 
     @SuppressLint("SetTextI18n")
     override fun afterTextChanged(s: Editable) {
-        textCount!!.text = s.length.toString() + "/125"
+        textCount.text = s.length.toString() + "/125"
         if (s.length == MAX_TEXT_COUNT) {
-            textCount!!.setTextColor(Color.RED)
+            textCount.setTextColor(Color.RED)
         } else {
-            textCount!!.setTextColor(resources.getColor(R.color.text_color))
+            textCount.setTextColor(ResourcesCompat.getColor(resources, R.color.text_color, theme))
         }
     }
 
