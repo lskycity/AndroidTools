@@ -27,6 +27,7 @@ import java.util.ArrayList
 
 import android.content.Context.WIFI_SERVICE
 import androidx.fragment.app.Fragment
+import com.lskycity.support.utils.ViewUtils
 
 /**
  * Created by zhaofliu on 10/1/16.
@@ -39,96 +40,7 @@ class NetworkFragment : Fragment() {
 
     private lateinit var adapter: NetAdapter
 
-    private val networkIpAddressFormInterface: ArrayList<InfoBin>
-        get() {
 
-            val list = ArrayList<InfoBin>(5)
-
-            try {
-                val networkInterfaceList = NetworkInterface.getNetworkInterfaces()
-                while (networkInterfaceList.hasMoreElements()) {
-                    val interfacess = networkInterfaceList.nextElement()
-                    val name = interfacess.name
-
-                    val infoBin = InfoBin()
-                    infoBin.name = getString(R.string.network_interface) + "/" + name
-                    infoBin.value = ""
-
-
-                    val inetAddresses = interfacess.inetAddresses
-
-                    while (inetAddresses.hasMoreElements()) {
-                        val address = inetAddresses.nextElement()
-                        if (!address.isLoopbackAddress) {
-
-                            if (!TextUtils.isEmpty(infoBin.value)) {
-                                infoBin.value += '\n'.toString()
-                            }
-
-                            var addressStr = address.hostAddress
-
-                            val index: Int = addressStr.indexOf('%')
-                            if (index > 0) {
-                                addressStr = addressStr.substring(0, index)
-                            }
-
-                            infoBin.value += addressStr
-                        }
-                    }
-
-                    if (!TextUtils.isEmpty(infoBin.value)) {
-                        list.add(infoBin)
-
-                    }
-
-
-                }
-
-            } catch (e: SocketException) {
-                e.printStackTrace()
-            }
-
-            return list
-        }
-
-    private val dnsInfo: InfoBin
-        get() {
-            val bin = InfoBin()
-
-            bin.name = getString(R.string.dns)
-            var SystemProperties: Class<*>? = null
-            try {
-                SystemProperties = Class.forName("android.os.SystemProperties")
-                val method = SystemProperties!!.getMethod("get", *arrayOf<Class<*>>(String::class.java))
-                val servers = ArrayList<String>()
-                for (name in arrayOf("net.dns1", "net.dns2", "net.dns3", "net.dns4")) {
-                    val value = method.invoke(null, name) as String
-                    if (value != null && "" != value && !servers.contains(value))
-                        servers.add(value)
-                }
-
-                bin.value = servers.toString()
-
-            } catch (e: ClassNotFoundException) {
-                e.printStackTrace()
-            } catch (e: NoSuchMethodException) {
-                e.printStackTrace()
-            } catch (e: IllegalAccessException) {
-                e.printStackTrace()
-            } catch (e: InvocationTargetException) {
-                e.printStackTrace()
-            }
-
-
-            return bin
-        }
-
-
-    private val activeNetworkInfo: NetworkInfo?
-        get() {
-            val connMgr = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            return connMgr.activeNetworkInfo
-        }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.activity_network_info, container, false)
@@ -146,21 +58,106 @@ class NetworkFragment : Fragment() {
 
     private fun updateNetworkInfo() {
 
-        val networkInfo = activeNetworkInfo
+        val connMgr = activity!!.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val networkInfo = connMgr.activeNetworkInfo
         infoBinArrayList.clear()
         if (networkInfo != null) {
             infoBinArrayList.add(getNetworkType(networkInfo))
             infoBinArrayList.add(getNetworkState(networkInfo))
             infoBinArrayList.add(getNetworkExtra(networkInfo))
             infoBinArrayList.add(getNetworkExtraInfo(networkInfo))
-            infoBinArrayList.addAll(networkIpAddressFormInterface)
+            infoBinArrayList.addAll(getNetworkIpAddressFormInterface())
             if (networkInfo.type == ConnectivityManager.TYPE_WIFI) {
                 infoBinArrayList.addAll(getNetworkIpAddressFormWifiManager(activity!!))
             }
-            infoBinArrayList.add(dnsInfo)
+            infoBinArrayList.add(getDnsInfo())
         }
         adapter.notifyDataSetChanged()
 
+    }
+
+    private fun getDnsInfo(): InfoBin {
+        val bin = InfoBin()
+
+        bin.name = getString(R.string.dns)
+        var SystemProperties: Class<*>? = null
+        try {
+            SystemProperties = Class.forName("android.os.SystemProperties")
+            val method = SystemProperties!!.getMethod("get", *arrayOf<Class<*>>(String::class.java))
+            val servers = ArrayList<String>()
+            for (name in arrayOf("net.dns1", "net.dns2", "net.dns3", "net.dns4")) {
+                val value = method.invoke(null, name) as String
+                if ("" != value && !servers.contains(value))
+                    servers.add(value)
+            }
+
+            bin.value = servers.toString()
+
+        } catch (e: ClassNotFoundException) {
+            e.printStackTrace()
+        } catch (e: NoSuchMethodException) {
+            e.printStackTrace()
+        } catch (e: IllegalAccessException) {
+            e.printStackTrace()
+        } catch (e: InvocationTargetException) {
+            e.printStackTrace()
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+
+
+        return bin
+    }
+
+    private fun getNetworkIpAddressFormInterface(): ArrayList<InfoBin> {
+
+        val list = ArrayList<InfoBin>(5)
+
+        try {
+            val networkInterfaceList = NetworkInterface.getNetworkInterfaces()
+            while (networkInterfaceList.hasMoreElements()) {
+                val interfacess = networkInterfaceList.nextElement()
+                val name = interfacess.name
+
+                val infoBin = InfoBin()
+                infoBin.name = getString(R.string.network_interface) + "/" + name
+                infoBin.value = ""
+
+
+                val inetAddresses = interfacess.inetAddresses
+
+                while (inetAddresses.hasMoreElements()) {
+                    val address = inetAddresses.nextElement()
+                    if (!address.isLoopbackAddress) {
+
+                        if (!TextUtils.isEmpty(infoBin.value)) {
+                            infoBin.value += '\n'.toString()
+                        }
+
+                        var addressStr = address.hostAddress
+
+                        val index: Int = addressStr.indexOf('%')
+                        if (index > 0) {
+                            addressStr = addressStr.substring(0, index)
+                        }
+
+                        infoBin.value += addressStr
+                    }
+                }
+
+                if (!TextUtils.isEmpty(infoBin.value)) {
+                    list.add(infoBin)
+
+                }
+
+
+            }
+
+        } catch (e: SocketException) {
+            e.printStackTrace()
+        }
+
+        return list
     }
 
     private fun getNetworkType(networkInfo: NetworkInfo): InfoBin {
@@ -267,9 +264,6 @@ class NetworkFragment : Fragment() {
 
     internal inner class NetAdapter(context: Context) : BaseAdapter() {
 
-        private val inflater: LayoutInflater = LayoutInflater.from(context)
-
-
         override fun getCount(): Int = infoBinArrayList.size
 
         override fun getItem(position: Int): InfoBin = infoBinArrayList[position]
@@ -277,7 +271,7 @@ class NetworkFragment : Fragment() {
         override fun getItemId(position: Int): Long = position.toLong()
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            val rootView = convertView ?: inflater.inflate(R.layout.item_config_list, parent, false);
+            val rootView = convertView ?: ViewUtils.inflate(R.layout.item_config_list, parent, false);
 
             val titleView = rootView.findViewById<View>(R.id.title) as TextView
             val summaryView = rootView.findViewById<View>(R.id.summary) as TextView

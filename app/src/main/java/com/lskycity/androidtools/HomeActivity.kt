@@ -120,6 +120,6 @@ class HomeActivity : AppCompatActivity() {
 
     companion object {
 
-        private val DISCLAIMER_REQUEST_CODE = 0x11
+        private const val DISCLAIMER_REQUEST_CODE = 0x11
     }
 }

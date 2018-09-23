@@ -19,8 +19,8 @@ import org.json.JSONObject
 
 object InformCheck {
 
-    val TIME_GREP_CHECK_INFORM = (1000 * 60 * 60 * 24 * 2).toLong()
-    val ACTION_INFORM_CHANGED = "com.lskycity.androidtools.action_inform_changed"
+    const val TIME_GREP_CHECK_INFORM = (1000 * 60 * 60 * 24 * 2).toLong()
+    const val ACTION_INFORM_CHANGED = "com.lskycity.androidtools.action_inform_changed"
 
 
     fun shouldCheckInform(context: Context): Boolean {

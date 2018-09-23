@@ -35,7 +35,7 @@ class ConfigurationFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val listView = ViewUtils.findViewById<ListView>(view, R.id.list_view)
-        listView.adapter = ConfigAdapter(activity!!, fetchConfigInfo())
+        listView.adapter = ConfigAdapter(fetchConfigInfo())
     }
 
     private fun fetchConfigInfo(): ArrayList<InfoBin> {
@@ -54,10 +54,9 @@ class ConfigurationFragment : Fragment() {
     }
 
 
-    internal inner class ConfigAdapter(context: Context, list: ArrayList<InfoBin>) : BaseAdapter() {
+    class ConfigAdapter(list: ArrayList<InfoBin>) : BaseAdapter() {
 
         private val arrayList = ArrayList<InfoBin>()
-        private val inflater: LayoutInflater = LayoutInflater.from(context)
 
 
         init {
@@ -72,15 +71,12 @@ class ConfigurationFragment : Fragment() {
         override fun getItemId(position: Int): Long = position.toLong()
 
         override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
-            var convertView = convertView
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.item_config_list, parent, false)
-            }
-            val titleView = convertView!!.findViewById<View>(R.id.title) as TextView
-            val summaryView = convertView.findViewById<View>(R.id.summary) as TextView
+            val rootView = convertView ?: ViewUtils.inflate(R.layout.item_config_list, parent, false)
+            val titleView = rootView.findViewById<View>(R.id.title) as TextView
+            val summaryView = rootView.findViewById<View>(R.id.summary) as TextView
             titleView.text = getItem(position).name
             summaryView.text = getItem(position).value
-            return convertView
+            return rootView
         }
     }
 

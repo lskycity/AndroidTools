@@ -11,15 +11,15 @@ import androidx.core.content.res.ResourcesCompat
  */
 
 object AppConstants {
-    val SHARED_KEY_INFORM_ID = "shared_key_inform_id"
-    val SHARED_KEY_INFORM_CONTENT = "shared_key_inform_content"
-    val SHARED_KEY_INFORM_CHECK_TIME = "shared_key_inform_check_time"
+    const val SHARED_KEY_INFORM_ID = "shared_key_inform_id"
+    const val SHARED_KEY_INFORM_CONTENT = "shared_key_inform_content"
+    const val SHARED_KEY_INFORM_CHECK_TIME = "shared_key_inform_check_time"
 
 
-    val INFORM_URL = "http://www.lskycity.com/androidtools/inform.json"
-    val CHECK_VERSION_URL = "http://www.lskycity.com/androidtools/latestversion.json"
-    val MAIN_PAGE_URL = "http://www.lskycity.com/androidtools/index.html"
-    val FEEDBACK_URL = "http://www.lskycity.com:5000/feedback"
+    const val INFORM_URL = "http://www.lskycity.com/androidtools/inform.json"
+    const val CHECK_VERSION_URL = "http://www.lskycity.com/androidtools/latestversion.json"
+    const val MAIN_PAGE_URL = "http://www.lskycity.com/androidtools/index.html"
+    const val FEEDBACK_URL = "http://www.lskycity.com:5000/feedback"
 
     fun startUrlWithCustomTab(context: Context, url: String) {
         val builder = CustomTabsIntent.Builder()

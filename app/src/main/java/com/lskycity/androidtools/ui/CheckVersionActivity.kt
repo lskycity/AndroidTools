@@ -35,19 +35,19 @@ class CheckVersionActivity : BaseActivity(), View.OnClickListener, View.OnLongCl
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_check_version)
 
-        val version = findViewById<View>(R.id.version_info) as TextView
+        val version = findViewById<TextView>(R.id.version_info)
         version.text = BuildConfig.VERSION_NAME
 
         findViewById<View>(R.id.check_version).setOnClickListener(this)
         findViewById<View>(R.id.forward_to_website).setOnClickListener(this)
         findViewById<View>(R.id.share_to_friend).setOnClickListener(this)
 
-        download = findViewById<View>(R.id.new_version_download) as Button
+        download = findViewById(R.id.new_version_download)
         download.setOnClickListener(this)
         download.setOnLongClickListener(this)
 
-        lastDateTextView = findViewById<View>(R.id.check_version_information) as TextView
-        newVersionTipText = findViewById<View>(R.id.new_version_text) as TextView
+        lastDateTextView = findViewById(R.id.check_version_information)
+        newVersionTipText = findViewById(R.id.new_version_text)
 
         setupNewVersionArea(true)
     }
