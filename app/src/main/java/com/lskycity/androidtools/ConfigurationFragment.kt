@@ -15,6 +15,7 @@ import android.widget.ListView
 import android.widget.TextView
 import androidx.core.content.res.ConfigurationHelper
 import androidx.fragment.app.Fragment
+import com.lskycity.support.utils.DensityUtils
 
 import com.lskycity.support.utils.ViewUtils
 
@@ -92,7 +93,7 @@ class ConfigurationFragment : Fragment() {
             val navigationBarHeight = resources.getDimensionPixelSize(resourceId)
 
             val name = activity.getString(R.string.navigation_bar_height)
-            val value = navigationBarHeight.toString() + "(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
+            val value = navigationBarHeight.toString() + "(" + DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
             return InfoBin(name, value)
         }
 
@@ -103,7 +104,7 @@ class ConfigurationFragment : Fragment() {
             val navigationBarHeight = resources.getDimensionPixelSize(resourceId)
 
             val name = activity.getString(R.string.status_bar_height)
-            val value = navigationBarHeight.toString() + "(" + com.lskycity.support.utils.DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
+            val value = navigationBarHeight.toString() + "(" + DensityUtils.pxTodp(activity, navigationBarHeight.toFloat()) + "dp)"
             return InfoBin(name, value)
         }
 
