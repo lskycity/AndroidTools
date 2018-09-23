@@ -46,7 +46,9 @@ object InformCheck {
             } catch (e: JSONException) {
                 e.printStackTrace()
             }
-        }, Response.ErrorListener { })
+        }, Response.ErrorListener {
+            it.printStackTrace()
+        })
 
 
         ToolApplication.get().requestQueue.add(jsonObjectRequest)
