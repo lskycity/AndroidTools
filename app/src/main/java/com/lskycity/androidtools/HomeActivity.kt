@@ -30,11 +30,14 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.content_container)
         bottomBar = findViewById(R.id.bottomNavigation)
 
-        bottomBar.setOnNavigationItemReselectedListener {
+        bottomBar.setOnNavigationItemSelectedListener {
             when (it.itemId) {
                 R.id.nav_device_info -> applyFragment(DeviceFragment::class.java)
                 R.id.nav_network_info -> applyFragment(NetworkFragment::class.java)
                 R.id.nav_configuration -> applyFragment(ConfigurationFragment::class.java)
+                else -> {
+                    false
+                }
             }
         }
 
@@ -77,9 +80,10 @@ class HomeActivity : AppCompatActivity() {
         unregisterReceiver(informReceiver)
     }
 
-    private fun applyFragment(c: Class<out Fragment>) {
+    private fun applyFragment(c: Class<out Fragment>): Boolean{
         val fragment = Fragment.instantiate(this, c.name)
         supportFragmentManager.beginTransaction().replace(R.id.content_container, fragment).commitAllowingStateLoss()
+        return true
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
