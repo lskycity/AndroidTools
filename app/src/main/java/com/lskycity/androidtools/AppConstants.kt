@@ -3,8 +3,8 @@ package com.lskycity.androidtools
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.net.Uri
-import android.support.customtabs.CustomTabsIntent
-import android.support.v4.content.res.ResourcesCompat
+import androidx.browser.customtabs.CustomTabsIntent
+import androidx.core.content.res.ResourcesCompat
 
 /**
  * Created by zhaofliu on 2/5/17.

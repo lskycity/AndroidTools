@@ -3,13 +3,10 @@ package com.lskycity.androidtools
 import android.content.Context
 import android.content.Intent
 import android.text.TextUtils
-
 import com.android.volley.Response
-import com.android.volley.VolleyError
 import com.lskycity.androidtools.app.ToolApplication
 import com.lskycity.androidtools.utils.CharsetJsonRequest
 import com.lskycity.support.utils.SharedPreUtils
-
 import org.json.JSONException
 import org.json.JSONObject
 

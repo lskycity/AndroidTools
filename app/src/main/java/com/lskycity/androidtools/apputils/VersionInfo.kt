@@ -1,7 +1,5 @@
 package com.lskycity.androidtools.apputils
 
-import android.text.TextUtils
-
 import com.lskycity.support.utils.DateUtils
 
 

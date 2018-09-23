@@ -2,7 +2,7 @@ package com.lskycity.androidtools
 
 import android.content.Context
 import android.hardware.Camera
-import android.support.v4.content.AsyncTaskLoader
+import androidx.loader.content.AsyncTaskLoader
 
 import java.util.ArrayList
 

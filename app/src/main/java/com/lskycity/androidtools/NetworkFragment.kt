@@ -5,7 +5,6 @@ import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.net.wifi.WifiManager
 import android.os.Bundle
-import android.support.v4.app.Fragment
 import android.text.TextUtils
 import android.text.format.Formatter
 import android.view.LayoutInflater
@@ -27,6 +26,7 @@ import java.net.SocketException
 import java.util.ArrayList
 
 import android.content.Context.WIFI_SERVICE
+import androidx.fragment.app.Fragment
 
 /**
  * Created by zhaofliu on 10/1/16.

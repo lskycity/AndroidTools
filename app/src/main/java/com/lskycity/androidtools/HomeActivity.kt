@@ -1,39 +1,42 @@
 package com.lskycity.androidtools
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.os.Bundle
-import android.support.annotation.IdRes
-import android.support.v4.app.Fragment
-import android.support.v7.app.AlertDialog
-import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
-
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.lskycity.androidtools.ui.DisclaimerActivity
 import com.lskycity.androidtools.ui.SettingsActivity
-import com.roughike.bottombar.BottomBar
-import com.roughike.bottombar.OnMenuTabSelectedListener
+
 
 /**
  * Created by zhaofliu on 16-9-13.
  *
  */
-class HomeActivity : AppCompatActivity(), OnMenuTabSelectedListener {
+class HomeActivity : AppCompatActivity() {
 
-    private var bottomBar: BottomBar? = null
+    private lateinit var bottomBar: BottomNavigationView
 
     private var informReceiver: InformReceiver? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.content_container)
+        bottomBar = findViewById(R.id.bottomNavigation)
 
-        bottomBar = BottomBar.attach(this, savedInstanceState)
-        bottomBar!!.setItemsFromMenu(R.menu.bottom_bar, this)
+        bottomBar.setOnNavigationItemReselectedListener {
+            when (it.itemId) {
+                R.id.nav_device_info -> applyFragment(DeviceFragment::class.java)
+                R.id.nav_network_info -> applyFragment(NetworkFragment::class.java)
+                R.id.nav_configuration -> applyFragment(ConfigurationFragment::class.java)
+            }
+        }
 
         //bottomBar.getCurrentTabPosition()
 
@@ -79,11 +82,6 @@ class HomeActivity : AppCompatActivity(), OnMenuTabSelectedListener {
         supportFragmentManager.beginTransaction().replace(R.id.content_container, fragment).commitAllowingStateLoss()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        bottomBar!!.onSaveInstanceState(outState)
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.main, menu)
         return super.onCreateOptionsMenu(menu)
@@ -102,15 +100,6 @@ class HomeActivity : AppCompatActivity(), OnMenuTabSelectedListener {
         startActivity(intent)
     }
 
-    override fun onMenuItemSelected(@IdRes menuItemId: Int) {
-        when (menuItemId) {
-            R.id.nav_device_info -> applyFragment(DeviceFragment::class.java)
-            R.id.nav_network_info -> applyFragment(NetworkFragment::class.java)
-            R.id.nav_configuration -> applyFragment(ConfigurationFragment::class.java)
-            else -> {
-            }
-        }
-    }
 
     internal inner class InformReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context, intent: Intent) {

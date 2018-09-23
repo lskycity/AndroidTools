@@ -1,8 +1,5 @@
 package com.lskycity.androidtools.apputils
 
-import android.content.Context
-import android.content.SharedPreferences
-
 /**
  * Created by liuzhaofeng on 2016/2/13.
  *

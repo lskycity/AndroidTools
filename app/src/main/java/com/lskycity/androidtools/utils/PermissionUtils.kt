@@ -1,22 +1,11 @@
 package com.lskycity.androidtools.utils
 
-import android.Manifest
+
 import android.annotation.TargetApi
-import android.app.Activity
 import android.content.Context
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
-import android.provider.Settings
-import android.support.v4.app.ActivityCompat
-import android.support.v4.util.Pair
-
-import com.lskycity.androidtools.BuildConfig
-
-import java.util.ArrayList
-import java.util.Arrays
-import java.util.HashMap
+import androidx.core.app.ActivityCompat
 
 /**
  * Created by liuzhaofeng on 12/7/15.
@@ -35,7 +24,7 @@ object PermissionUtils {
     }
 
     fun verifyPermissions(grantResults: IntArray): Boolean {
-        if (grantResults.size < 1) {
+        if (grantResults.isEmpty()) {
             return false
         }
 

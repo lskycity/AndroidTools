@@ -3,7 +3,6 @@ package com.lskycity.androidtools.ui
 import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.res.ResourcesCompat
 import android.text.*
 import android.text.style.UnderlineSpan
 import android.view.Menu
@@ -12,6 +11,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
 import com.android.volley.Request
 import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest

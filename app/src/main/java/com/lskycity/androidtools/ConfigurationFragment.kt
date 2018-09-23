@@ -6,8 +6,6 @@ import android.content.res.Resources
 import android.graphics.Point
 import android.os.Build
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.support.v4.content.res.ConfigurationHelper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +13,8 @@ import android.view.WindowManager
 import android.widget.BaseAdapter
 import android.widget.ListView
 import android.widget.TextView
+import androidx.core.content.res.ConfigurationHelper
+import androidx.fragment.app.Fragment
 
 import com.lskycity.support.utils.ViewUtils
 

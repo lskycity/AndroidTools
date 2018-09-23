@@ -1,7 +1,7 @@
 package com.lskycity.androidtools.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 
 /**
  * Created by zhaofliu on 2/5/17.

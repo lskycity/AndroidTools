@@ -2,7 +2,6 @@ package com.lskycity.androidtools
 
 import android.os.Parcel
 import android.os.Parcelable
-import android.util.Pair
 
 /**
  * Created by zhaofliu on 1/29/17.
