@@ -20,14 +20,14 @@ class CharsetJsonRequest(url: String, listener: Response.Listener<JSONObject>, e
 
     override fun parseNetworkResponse(response: NetworkResponse): Response<JSONObject> {
 
-        try {
+        return try {
             val jsonString = String(response.data, Charset.defaultCharset())
-            return Response.success(JSONObject(jsonString),
+            Response.success(JSONObject(jsonString),
                     HttpHeaderParser.parseCacheHeaders(response))
         } catch (e: UnsupportedEncodingException) {
-            return Response.error(ParseError(e))
+            Response.error(ParseError(e))
         } catch (je: JSONException) {
-            return Response.error(ParseError(je))
+            Response.error(ParseError(je))
         }
 
     }

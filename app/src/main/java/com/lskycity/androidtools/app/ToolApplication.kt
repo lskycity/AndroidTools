@@ -17,7 +17,7 @@ class ToolApplication : Application() {
     }
 
     companion object {
-        lateinit var instance: ToolApplication
+        private lateinit var instance: ToolApplication
 
         fun get(): ToolApplication {
             return instance
